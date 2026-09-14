@@ -1,0 +1,79 @@
+# mcp_probe 2026-09-15T09:19:47+1000
+# server: puntersedge-mcp
+# protocolVersion offered: 2025-06-18
+# key present in env: no
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp_probe",
+      "version": "1.0.0"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "capabilities": {
+      "experimental": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "listChanged": false,
+        "subscribe": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Australian and New Zealand racing plus Australian sports odds from 14 Australian bookmakers. AU racing covers thoroughbred, greyhound and harness; NZ covers thoroughbred and harness. Racing lives under racing_* tools, NOT a sport key \u2014 there is no sport_key of 'horse-racing'. Every priced call costs credits (stated per tool); check_usage shows the monthly balance, and every result carries credits_remaining so you rarely need it. Prices are decimal odds in AUD markets. Two things worth knowing before you reason over a price: each quote carries its own age_seconds and stale flag, because a stalled scraper keeps serving its last value rather than erroring; and a large apparent edge on a market only one bookmaker is quoting is a data artefact, not an opportunity.",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "puntersedge",
+      "version": ""
+    }
+  }
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized"
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "demo_best_odds",
+    "arguments": {
+      "sport": "afl"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "content": [
+      {
+        "text": "{\"data\": {\"demo\": true, \"note\": \"Free sandbox sample (truncated). Get a free API key for full data: https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"signup_url\": \"https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"sport\": \"afl\", \"events\": [{\"home_team\": \"Sydney\", \"away_team\": \"Fremantle\", \"commence_time\": \"2026-09-18T09:40:00Z\", \"selections\": [{\"name\": \"Sydney\", \"best_price\": 2.5, \"best_bookmaker\": \"palmerbet\"}, {\"name\": \"Fremantle\", \"best_price\": 1.55, \"best_bookmaker\": \"sportsbet\"}], \"arb_exists\": false, \"arb_profit_pct\": 0.0}, {\"home_team\": \"Hawthorn\", \"away_team\": \"Brisbane Lions\", \"commence_time\": \"2026-09-19T07:15:50Z\", \"selections\": [{\"name\": \"Hawthorn\", \"best_price\": 2.02, \"best_bookmaker\": \"betright\"}, {\"name\": \"Brisbane Lions\", \"best_price\": 1.82, \"best_bookmaker\": \"ladbrokes_au\"}], \"arb_exists\": false, \"arb_profit_pct\": 0.0}, {\"home_team\": \"Brodie Grundy\", \"away_team\": \"Christian Petracca\", \"commence_time\": \"2026-09-21T10:10:00Z\", \"selections\": [{\"name\": \"Brodie Grundy\", \"best_price\": 1.87, \"best_bookmaker\": \"sportsbet\"}, {\"name\": \"Christian Petracca\", \"best_price\": 1.87, \"best_bookmaker\": \"sportsbet\"}], \"arb_exists\": false, \"arb_profit_pct\": 0.0}], \"cached\": false}}",
+        "type": "text"
+      }
+    ],
+    "isError": false,
+    "structuredContent": {
+      "result": "{\"data\": {\"demo\": true, \"note\": \"Free sandbox sample (truncated). Get a free API key for full data: https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"signup_url\": \"https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"sport\": \"afl\", \"events\": [{\"home_team\": \"Sydney\", \"away_team\": \"Fremantle\", \"commence_time\": \"2026-09-18T09:40:00Z\", \"selections\": [{\"name\": \"Sydney\", \"best_price\": 2.5, \"best_bookmaker\": \"palmerbet\"}, {\"name\": \"Fremantle\", \"best_price\": 1.55, \"best_bookmaker\": \"sportsbet\"}], \"arb_exists\": false, \"arb_profit_pct\": 0.0}, {\"home_team\": \"Hawthorn\", \"away_team\": \"Brisbane Lions\", \"commence_time\": \"2026-09-19T07:15:50Z\", \"selections\": [{\"name\": \"Hawthorn\", \"best_price\": 2.02, \"best_bookmaker\": \"betright\"}, {\"name\": \"Brisbane Lions\", \"best_price\": 1.82, \"best_bookmaker\": \"ladbrokes_au\"}], \"arb_exists\": false, \"arb_profit_pct\": 0.0}, {\"home_team\": \"Brodie Grundy\", \"away_team\": \"Christian Petracca\", \"commence_time\": \"2026-09-21T10:10:00Z\", \"selections\": [{\"name\": \"Brodie Grundy\", \"best_price\": 1.87, \"best_bookmaker\": \"sportsbet\"}, {\"name\": \"Christian Petracca\", \"best_price\": 1.87, \"best_bookmaker\": \"sportsbet\"}], \"arb_exists\": false, \"arb_profit_pct\": 0.0}], \"cached\": false}}"
+    }
+  }
+}
+

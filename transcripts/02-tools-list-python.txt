@@ -1,0 +1,1433 @@
+# mcp_probe 2026-09-15T09:19:46+1000
+# server: puntersedge-mcp
+# protocolVersion offered: 2025-06-18
+# key present in env: no
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp_probe",
+      "version": "1.0.0"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "capabilities": {
+      "experimental": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "listChanged": false,
+        "subscribe": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Australian and New Zealand racing plus Australian sports odds from 14 Australian bookmakers. AU racing covers thoroughbred, greyhound and harness; NZ covers thoroughbred and harness. Racing lives under racing_* tools, NOT a sport key \u2014 there is no sport_key of 'horse-racing'. Every priced call costs credits (stated per tool); check_usage shows the monthly balance, and every result carries credits_remaining so you rarely need it. Prices are decimal odds in AUD markets. Two things worth knowing before you reason over a price: each quote carries its own age_seconds and stale flag, because a stalled scraper keeps serving its last value rather than erroring; and a large apparent edge on a market only one bookmaker is quoting is a data artefact, not an opportunity.",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "puntersedge",
+      "version": ""
+    }
+  }
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized"
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/list"
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "tools": [
+      {
+        "description": "Next Australian/NZ races to jump, with runners and live per-bookmaker prices.\n    COST: 2 credits. categories: horse,greyhound,harness (omit for all). country: ISO\n    codes e.g. AU or AU,NZ (omit for every country \u2014 recommended, since late-card races\n    can be country-unresolved). venue/bookmakers: comma-separated, case-insensitive.\n    Each price carries its own age_seconds and stale flag; prefer fresh quotes.",
+        "inputSchema": {
+          "properties": {
+            "num_races": {
+              "default": 10,
+              "title": "Num Races",
+              "type": "integer"
+            },
+            "categories": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Categories"
+            },
+            "country": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Country"
+            },
+            "venue": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Venue"
+            },
+            "bookmakers": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Bookmakers"
+            }
+          },
+          "type": "object",
+          "title": "racing_next_to_goArguments"
+        },
+        "name": "racing_next_to_go",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "racing_next_to_goOutput"
+        }
+      },
+      {
+        "description": "Best win, place and tote price per runner across every bookmaker, with the book\n    offering it and the market percentage. COST: 3 credits. market_percentage under 100\n    means the best prices across books beat the field; over 100 is the bookmakers'\n    margin, which is the normal case.",
+        "inputSchema": {
+          "properties": {
+            "num_races": {
+              "default": 10,
+              "title": "Num Races",
+              "type": "integer"
+            },
+            "categories": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Categories"
+            },
+            "country": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Country"
+            },
+            "bookmakers": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Bookmakers"
+            }
+          },
+          "type": "object",
+          "title": "racing_best_oddsArguments"
+        },
+        "name": "racing_best_odds",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "racing_best_oddsOutput"
+        }
+      },
+      {
+        "description": "Consensus firmers and drifters in the live racing window. COST: 3 credits.\n    direction must be 'firming', 'drifting' or omitted \u2014 anything else is refused with a\n    422 (free). min_books only reports a move confirmed by that many bookmakers, which is\n    how you separate a real move from one book repricing. Use `limit` to cap the page;\n    there is no num_races on this endpoint.",
+        "inputSchema": {
+          "properties": {
+            "direction": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Direction"
+            },
+            "min_move_pct": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Min Move Pct"
+            },
+            "min_books": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Min Books"
+            },
+            "categories": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Categories"
+            },
+            "country": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Country"
+            },
+            "max_mins_to_jump": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Max Mins To Jump"
+            },
+            "limit": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Limit"
+            }
+          },
+          "type": "object",
+          "title": "racing_moversArguments"
+        },
+        "name": "racing_movers",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "racing_moversOutput"
+        }
+      },
+      {
+        "description": "Races and prices that changed since a timestamp. COST: 2 credits.\n    THE RIGHT WAY TO WATCH A MARKET. Calling racing_next_to_go repeatedly re-downloads\n    every race every time; this returns only what moved. `since` is an ISO 8601 UTC\n    timestamp \u2014 on the first call use a recent one, then pass back the `server_time` the\n    response returns. That cursor is set 30s behind the server clock so no in-flight\n    write is skipped, which means the feed is at-least-once: expect to see a race twice.\n    Note the shape \u2014 `changed_runners` is FLAT, one row per runner per bookmaker with\n    bookmaker_key on the row, not the nested runners[].bookmakers[] of next-to-go.",
+        "inputSchema": {
+          "properties": {
+            "since": {
+              "title": "Since",
+              "type": "string"
+            },
+            "categories": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Categories"
+            },
+            "country": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Country"
+            }
+          },
+          "required": [
+            "since"
+          ],
+          "type": "object",
+          "title": "racing_changesArguments"
+        },
+        "name": "racing_changes",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "racing_changesOutput"
+        }
+      },
+      {
+        "description": "Scheduled races in a forward window, WITHOUT prices. COST: 1 credit.\n    Cheaper than next-to-go when you only need the card \u2014 what is running, where and\n    when \u2014 rather than what it is paying.",
+        "inputSchema": {
+          "properties": {
+            "hours_ahead": {
+              "default": 12,
+              "title": "Hours Ahead",
+              "type": "integer"
+            },
+            "categories": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Categories"
+            },
+            "country": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Country"
+            }
+          },
+          "type": "object",
+          "title": "racing_eventsArguments"
+        },
+        "name": "racing_events",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "racing_eventsOutput"
+        }
+      },
+      {
+        "description": "Track condition, weather and rail position: current state plus the day's change\n    log. COST: 1 credit. date=YYYY-MM-DD, Australia/Sydney, up to 7 days back. A going\n    change mid-meeting is one of the few things that moves a whole card at once.",
+        "inputSchema": {
+          "properties": {
+            "date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Date"
+            },
+            "venue": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Venue"
+            }
+          },
+          "type": "object",
+          "title": "racing_track_conditionsArguments"
+        },
+        "name": "racing_track_conditions",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "racing_track_conditionsOutput"
+        }
+      },
+      {
+        "description": "Full-day AU thoroughbred acceptance card: every meeting, race and runner.\n    COST: 2 credits. date=YYYY-MM-DD (Australia/Sydney), up to 3 days back or forward.\n    READ THE COUNTS CAREFULLY. Several are a FLOOR rather than an exact figure wherever a\n    race reports runner_set_status other than 'checks_passed' \u2014 the response's\n    `completeness` block and each race's `runner_set_note` state the bound. Say 'at least\n    N' rather than reporting a field size, unless the status says checks_passed.",
+        "inputSchema": {
+          "properties": {
+            "date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Date"
+            },
+            "venue": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Venue"
+            }
+          },
+          "type": "object",
+          "title": "racing_acceptancesArguments"
+        },
+        "name": "racing_acceptances",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "racing_acceptancesOutput"
+        }
+      },
+      {
+        "description": "Canonical venue directory: venue_id, display name, physical site, country and the\n    codes run there. COST: 1 credit. Use venue_id to join across endpoints \u2014 spelling\n    variants of one track ('Sandown Hillside', 'SANDOWN HILLSIDE') share one id, and the\n    raw `venue` string does not.",
+        "inputSchema": {
+          "properties": {},
+          "type": "object",
+          "title": "racing_venuesArguments"
+        },
+        "name": "racing_venues",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "racing_venuesOutput"
+        }
+      },
+      {
+        "description": "Settled AU/NZ race results. COST: 2 credits.\n    Carries `placings` (the dividend-bearing top three, with win and place prices) AND\n    `runners` (the FULL finishing order with jockey, trainer, margin, starting price and\n    a stable runner_ref). Neither alone is the whole picture \u2014 join them on saddlecloth\n    number. Settle only against status=final; interim can change on protest.\n    date=YYYY-MM-DD for a single meeting day (AET). `field_status` says whether the\n    finishing order is the complete field.",
+        "inputSchema": {
+          "properties": {
+            "hours_back": {
+              "default": 24,
+              "title": "Hours Back",
+              "type": "integer"
+            },
+            "date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Date"
+            },
+            "categories": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Categories"
+            },
+            "venue": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Venue"
+            },
+            "country": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Country"
+            },
+            "status": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Status"
+            },
+            "limit": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Limit"
+            },
+            "offset": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Offset"
+            }
+          },
+          "type": "object",
+          "title": "racing_resultsArguments"
+        },
+        "name": "racing_results",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "racing_resultsOutput"
+        }
+      },
+      {
+        "description": "What the results field coverage actually IS, measured rather than promised.\n    COST: 1 credit. Call this before telling a user that results are missing \u2014 the answer\n    is often that a race has no results source, not that we dropped it.",
+        "inputSchema": {
+          "properties": {
+            "days": {
+              "default": 7,
+              "title": "Days",
+              "type": "integer"
+            }
+          },
+          "type": "object",
+          "title": "racing_results_coverageArguments"
+        },
+        "name": "racing_results_coverage",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "racing_results_coverageOutput"
+        }
+      },
+      {
+        "description": "Recorded per-bookmaker price ticks for one race \u2014 the market movement record.\n    COST: 5 credits (this is one of the expensive ones; do not loop it).\n    Give race_id, or venue + race_number + date. include_points=false returns\n    open/close/high/low only, which is usually what a summary needs.",
+        "inputSchema": {
+          "properties": {
+            "race_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Race Id"
+            },
+            "venue": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Venue"
+            },
+            "race_number": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Race Number"
+            },
+            "date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Date"
+            },
+            "bookmakers": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Bookmakers"
+            },
+            "include_points": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Include Points"
+            }
+          },
+          "type": "object",
+          "title": "racing_price_historyArguments"
+        },
+        "name": "racing_price_history",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "racing_price_historyOutput"
+        }
+      },
+      {
+        "description": "The permanent closing-line and result archive \u2014 the dataset for measuring closing\n    line value. COST: 5 credits. Requires the Standard plan or above; a free key gets a\n    403 naming the plans that work. Ask racing_closing_lines_coverage first to learn what\n    the archive actually holds before reporting that something is missing.",
+        "inputSchema": {
+          "properties": {
+            "date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Date"
+            },
+            "venue": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Venue"
+            },
+            "category": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Category"
+            },
+            "country": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Country"
+            },
+            "race_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Race Id"
+            },
+            "resulted_only": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Resulted Only"
+            },
+            "limit": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Limit"
+            },
+            "offset": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Offset"
+            }
+          },
+          "type": "object",
+          "title": "racing_closing_linesArguments"
+        },
+        "name": "racing_closing_lines",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "racing_closing_linesOutput"
+        }
+      },
+      {
+        "description": "What the closing-line archive holds: floor date, row and race counts, how much is\n    a true closing line and how much is resulted. COST: 1 credit. Cheap, and it is the\n    honest answer to 'how far back does your history go'.",
+        "inputSchema": {
+          "properties": {},
+          "type": "object",
+          "title": "racing_closing_lines_coverageArguments"
+        },
+        "name": "racing_closing_lines_coverage",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "racing_closing_lines_coverageOutput"
+        }
+      },
+      {
+        "description": "Thoroughbred form, career record and profile for ONE horse. COST: 3 credits.\n    `horse` is a name (matched case- and punctuation-insensitively) or the stable `ra:`\n    code from runner_ref on results and live runners \u2014 prefer runner_ref when you have\n    it, since names collide. DO NOT LOOP THIS over a field or a list: the upstream rate\n    limits hard and a burst gets the whole estate flagged. For many horses there is a\n    paced bulk backfill queue, reached from application code rather than from here.",
+        "inputSchema": {
+          "properties": {
+            "horse": {
+              "title": "Horse",
+              "type": "string"
+            }
+          },
+          "required": [
+            "horse"
+          ],
+          "type": "object",
+          "title": "horse_formArguments"
+        },
+        "name": "horse_form",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "horse_formOutput"
+        }
+      },
+      {
+        "description": "Greyhound form history for one dog. COST: 3 credits. `dog` is a name or a Topaz\n    dogId; names match case- and punctuation-insensitively on the whole name.",
+        "inputSchema": {
+          "properties": {
+            "dog": {
+              "title": "Dog",
+              "type": "string"
+            },
+            "limit": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Limit"
+            }
+          },
+          "required": [
+            "dog"
+          ],
+          "type": "object",
+          "title": "greyhound_formArguments"
+        },
+        "name": "greyhound_form",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "greyhound_formOutput"
+        }
+      },
+      {
+        "description": "One greyhound's record broken down by track, distance, box or grade.\n    COST: 3 credits. `by` crosses dimensions: 'track,distance' groups by both. Box\n    statistics are the ones punters most often want and most often compute wrongly from\n    raw form.",
+        "inputSchema": {
+          "properties": {
+            "dog": {
+              "title": "Dog",
+              "type": "string"
+            },
+            "by": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "By"
+            }
+          },
+          "required": [
+            "dog"
+          ],
+          "type": "object",
+          "title": "greyhound_statsArguments"
+        },
+        "name": "greyhound_stats",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "greyhound_statsOutput"
+        }
+      },
+      {
+        "description": "Jockey premiership leaderboards, or one jockey by (partial) name. COST: 2 credits.\n    state: AUS (national) or a state. scope: all, metro, provincial, country, picnic.\n    season: current or previous RA season (1 Aug \u2013 31 Jul).",
+        "inputSchema": {
+          "properties": {
+            "name": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Name"
+            },
+            "state": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "State"
+            },
+            "scope": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Scope"
+            },
+            "season": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Season"
+            }
+          },
+          "type": "object",
+          "title": "jockey_statsArguments"
+        },
+        "name": "jockey_stats",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "jockey_statsOutput"
+        }
+      },
+      {
+        "description": "Trainer premiership leaderboards, or one trainer by (partial) name.\n    COST: 2 credits. Same state/scope/season options as jockey_stats.",
+        "inputSchema": {
+          "properties": {
+            "name": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Name"
+            },
+            "state": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "State"
+            },
+            "scope": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Scope"
+            },
+            "season": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Season"
+            }
+          },
+          "type": "object",
+          "title": "trainer_statsArguments"
+        },
+        "name": "trainer_stats",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "trainer_statsOutput"
+        }
+      },
+      {
+        "description": "The sport catalogue: every queryable sport_key with its display name.\n    COST: 1 credit. Racing is NOT in here and has no sport_key \u2014 use the racing_* tools.",
+        "inputSchema": {
+          "properties": {},
+          "type": "object",
+          "title": "list_sportsArguments"
+        },
+        "name": "list_sports",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "list_sportsOutput"
+        }
+      },
+      {
+        "description": "Head-to-head, spread and total prices per bookmaker for one sport's upcoming\n    fixtures (sport_key=afl, nrl, nba, soccer_epl \u2026).\n    COST: 1 CREDIT PER MARKET REQUESTED \u2014 markets='h2h' is 1, 'h2h,spreads,totals' is 3.\n    There is no single figure for this tool; ask for the markets you will actually read.\n    Every market carries a `quality` object (score, status, age in seconds) \u2014 trust it\n    over assumptions. Racing is not a sport key; 'horse-racing' is a 422.",
+        "inputSchema": {
+          "properties": {
+            "sport_key": {
+              "title": "Sport Key",
+              "type": "string"
+            },
+            "markets": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Markets"
+            },
+            "bookmakers": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Bookmakers"
+            },
+            "competition": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Competition"
+            }
+          },
+          "required": [
+            "sport_key"
+          ],
+          "type": "object",
+          "title": "sports_oddsArguments"
+        },
+        "name": "sports_odds",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "sports_oddsOutput"
+        }
+      },
+      {
+        "description": "Best available price per outcome across bookmakers for one sport.\n    COST: 3 credits.",
+        "inputSchema": {
+          "properties": {
+            "sport_key": {
+              "title": "Sport Key",
+              "type": "string"
+            }
+          },
+          "required": [
+            "sport_key"
+          ],
+          "type": "object",
+          "title": "best_oddsArguments"
+        },
+        "name": "best_odds",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "best_oddsOutput"
+        }
+      },
+      {
+        "description": "Cross-book price comparison per selection, with every bookmaker's quote alongside\n    the best. COST: 2 credits. A word of warning worth passing on: a two-outcome market\n    that only ONE bookmaker is quoting will look like a large edge and is not one. Check\n    how many books stand behind each leg before reporting an opportunity.",
+        "inputSchema": {
+          "properties": {
+            "sport_key": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sport Key"
+            },
+            "max_age_minutes": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Max Age Minutes"
+            }
+          },
+          "type": "object",
+          "title": "arb_best_pricesArguments"
+        },
+        "name": "arb_best_prices",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "arb_best_pricesOutput"
+        }
+      },
+      {
+        "description": "Current key's plan, monthly credit allowance, credits used and reset date.\n    COST: free. You rarely need this \u2014 every priced result above already carries\n    credits_remaining, read from the response headers.",
+        "inputSchema": {
+          "properties": {},
+          "type": "object",
+          "title": "check_usageArguments"
+        },
+        "name": "check_usage",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "check_usageOutput"
+        }
+      },
+      {
+        "description": "Per-bookmaker feed freshness: last_ok, status, records written. COST: free.\n    THIS IS HOW YOU TELL A QUIET MARKET FROM A BROKEN FEED. A stalled scraper does not\n    error \u2014 it keeps serving its last value, which looks exactly like a live price. If a\n    book's prices seem frozen, check here before telling a user the market has settled.",
+        "inputSchema": {
+          "properties": {},
+          "type": "object",
+          "title": "connector_healthArguments"
+        },
+        "name": "connector_health",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "connector_healthOutput"
+        }
+      },
+      {
+        "description": "Free no-key sandbox sample of racing_next_to_go (3 races, 5 runners, 3 books,\n    truncated). COST: free. Use it to explore the response shape before spending\n    credits, and to demonstrate the data to someone who has not signed up.",
+        "inputSchema": {
+          "properties": {},
+          "type": "object",
+          "title": "demo_next_to_goArguments"
+        },
+        "name": "demo_next_to_go",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "demo_next_to_goOutput"
+        }
+      },
+      {
+        "description": "Free no-key sandbox sample of sports best-odds with arb detection. COST: free.\n    `sport` is optional; a live sport is picked if omitted.",
+        "inputSchema": {
+          "properties": {
+            "sport": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sport"
+            }
+          },
+          "type": "object",
+          "title": "demo_best_oddsArguments"
+        },
+        "name": "demo_best_odds",
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "title": "Result",
+              "type": "string"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object",
+          "title": "demo_best_oddsOutput"
+        }
+      }
+    ]
+  }
+}
+
+# tools/list returned 26 tools

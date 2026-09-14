@@ -1,0 +1,320 @@
+# mcp_probe 2026-09-15T09:19:48+1000
+# server: npx -y github:Propertyscout001/puntersedge-mcp
+# protocolVersion offered: 2025-06-18
+# key present in env: no
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp_probe",
+      "version": "1.0.0"
+    }
+  }
+}
+
+<-- {
+  "result": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {
+      "tools": {
+        "listChanged": true
+      }
+    },
+    "serverInfo": {
+      "name": "puntersedge",
+      "version": "0.1.0"
+    }
+  },
+  "jsonrpc": "2.0",
+  "id": 1
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized"
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/list"
+}
+
+<-- {
+  "result": {
+    "tools": [
+      {
+        "name": "racing_next_to_go",
+        "description": "The next Australian horse, greyhound and harness races about to jump, with EVERY bookmaker's price for every runner side by side. This is the primary tool: use it for 'what's racing next', 'who is favourite in the next race at <venue>', or any question about current Australian racing prices. Each race reports data_age_seconds and each price its own age, so you can tell the user how fresh the odds are rather than implying they are live to the second.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "num_races": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "description": "How many upcoming races to return. Default 10."
+            },
+            "categories": {
+              "type": "string",
+              "description": "Comma-separated: horse, greyhound, harness. Omit for all three."
+            },
+            "country": {
+              "type": "string",
+              "description": "ISO country codes, comma-separated, e.g. 'AU' or 'AU,NZ'. Pass AU for Australian meetings \u2014 87% of foreign and unlabelled races carry exactly ONE bookmaker, so there is usually nothing to compare, though 10% carry two and a small tail carries eleven. An AU race gathers books toward the jump: a median of 10 inside 30 minutes, 5 at one to two hours, 2 beyond that. Read the bookmakers array per race rather than assuming."
+            },
+            "bookmakers": {
+              "type": "string",
+              "description": "Comma-separated bookmaker keys to restrict to, e.g. 'sportsbet,tab'."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "racing_best_odds",
+        "description": "The single best available price for each runner in upcoming Australian races, and which bookmaker is offering it. Use this when the user wants the best price rather than a full comparison across every book \u2014 'where is the best odds on <horse>', 'best price in the next race'.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "num_races": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "description": "How many upcoming races. Default 10."
+            },
+            "categories": {
+              "type": "string",
+              "description": "horse, greyhound, harness \u2014 comma-separated."
+            },
+            "country": {
+              "type": "string",
+              "description": "ISO country codes, e.g. 'AU'."
+            },
+            "bookmakers": {
+              "type": "string",
+              "description": "Restrict to these bookmaker keys."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "racing_events",
+        "description": "The upcoming Australian race schedule \u2014 venues, race numbers and jump times, without runner prices. Use this for 'what meetings are on today' or to find a race_id before asking about it. Cheaper than next_to_go when prices are not needed.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "hours_ahead": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 24,
+              "description": "Look-ahead window in hours. Default 4."
+            },
+            "categories": {
+              "type": "string",
+              "description": "horse, greyhound, harness \u2014 comma-separated."
+            },
+            "country": {
+              "type": "string",
+              "description": "ISO country codes, e.g. 'AU'."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "racing_results",
+        "description": "Settled results for Australian races that have already run \u2014 finishing order and dividends. Use this for 'who won the <race> at <venue>' or to check a past result. Not for upcoming races.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "hours_back": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 168,
+              "description": "How far back to look. Default 24."
+            },
+            "venue": {
+              "type": "string",
+              "description": "Filter to one venue, e.g. 'Randwick'."
+            },
+            "categories": {
+              "type": "string",
+              "description": "horse, greyhound, harness."
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200,
+              "description": "Max races returned."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "racing_movers",
+        "description": "Runners whose price has moved sharply across the market \u2014 firming (shortening) or drifting (lengthening). Use this for 'what's being backed', 'any big movers today', or market-sentiment questions. A move confirmed by several bookmakers is more meaningful than one book repricing, so min_books guards against reading noise as a signal.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "direction": {
+              "type": "string",
+              "enum": [
+                "firming",
+                "drifting"
+              ],
+              "description": "Omit for both."
+            },
+            "min_move_pct": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 90,
+              "description": "Minimum percentage move. Default 10."
+            },
+            "min_books": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12,
+              "description": "How many bookmakers must show the move before it counts. Default 3."
+            },
+            "categories": {
+              "type": "string",
+              "description": "horse, greyhound, harness."
+            },
+            "country": {
+              "type": "string",
+              "description": "ISO country codes, e.g. 'AU'."
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200,
+              "description": "Max runners returned."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "list_sports",
+        "description": "Every sport and competition this API currently covers, with its sport_key. Call this FIRST if you are unsure of the right sport_key \u2014 passing an unknown key returns a 404 listing the valid ones, but checking here is cheaper. Note there is no 'horse-racing' sport_key: racing lives under the separate racing_* tools.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "get_sports_odds",
+        "description": "Head-to-head and other market odds for one sport, from every bookmaker covering it. Use for 'odds for the <team> game', 'who is favourite in the NRL tonight'. Sports coverage is thinner than racing \u2014 at most 5 bookmakers on AFL and NRL, 3 on NBA and ATP, and as few as 1 on some competitions \u2014 so say how many books are quoting rather than implying a full market.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "sport_key": {
+              "type": "string",
+              "description": "From list_sports, e.g. 'afl', 'nrl', 'nba'."
+            },
+            "markets": {
+              "type": "string",
+              "description": "Comma-separated market keys, e.g. 'h2h,totals'."
+            },
+            "bookmakers": {
+              "type": "string",
+              "description": "Restrict to these bookmaker keys."
+            },
+            "oddsFormat": {
+              "type": "string",
+              "enum": [
+                "decimal",
+                "american"
+              ],
+              "description": "Default decimal (Australian convention)."
+            },
+            "maxAgeMinutes": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Drop prices older than this."
+            }
+          },
+          "required": [
+            "sport_key"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "get_best_odds",
+        "description": "The single best price per selection for one sport, and which bookmaker offers it. Use when the user wants the best available price rather than every book's line.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "sport_key": {
+              "type": "string",
+              "description": "From list_sports, e.g. 'afl'."
+            }
+          },
+          "required": [
+            "sport_key"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "account_usage",
+        "description": "This API key's credit usage and remaining balance for the month. Use it when a call has been refused with a 402, or when the user asks how much of their quota is left.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}
+
+# tools/list returned 9 tools
+# --- server stderr ---
+# puntersedge-mcp 0.1.0 ready (https://api.puntersedge.online/v1) — PUNTERSEDGE_API_KEY not set

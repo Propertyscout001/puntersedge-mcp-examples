@@ -1,0 +1,23 @@
+# Never commit a key. The servers and the scripts here read one from the
+# environment; nothing in this repo should ever contain the value.
+.env
+.env.*
+*.key
+*.pem
+configs/*.local.json
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Editors and OS
+.DS_Store
+.idea/
+.vscode/

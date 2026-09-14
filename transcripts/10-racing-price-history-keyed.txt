@@ -1,0 +1,79 @@
+# mcp_probe 2026-09-15T09:19:53+1000
+# server: puntersedge-mcp
+# protocolVersion offered: 2025-06-18
+# key present in env: yes
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp_probe",
+      "version": "1.0.0"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "capabilities": {
+      "experimental": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "listChanged": false,
+        "subscribe": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Australian and New Zealand racing plus Australian sports odds from 14 Australian bookmakers. AU racing covers thoroughbred, greyhound and harness; NZ covers thoroughbred and harness. Racing lives under racing_* tools, NOT a sport key \u2014 there is no sport_key of 'horse-racing'. Every priced call costs credits (stated per tool); check_usage shows the monthly balance, and every result carries credits_remaining so you rarely need it. Prices are decimal odds in AUD markets. Two things worth knowing before you reason over a price: each quote carries its own age_seconds and stale flag, because a stalled scraper keeps serving its last value rather than erroring; and a large apparent edge on a market only one bookmaker is quoting is a data artefact, not an opportunity.",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "puntersedge",
+      "version": ""
+    }
+  }
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized"
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "racing_price_history",
+    "arguments": {
+      "race_id": "de29eb14-1ad1-4fb2-94d9-ab3a588c38f2"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "content": [
+      {
+        "text": "{\"data\": {\"race_id\": \"de29eb14-1ad1-4fb2-94d9-ab3a588c38f2\", \"venue\": \"SANDOWN PARK\", \"venue_id\": \"sandown-park\", \"venue_canonical\": \"Sandown Park\", \"venue_site\": \"sandown\", \"race_number\": 11, \"category\": \"greyhound\", \"country\": \"AU\", \"start_time\": \"2026-09-14T12:27:00Z\", \"points_returned\": 345, \"truncated\": false, \"history_from\": \"2026-08-04T09:22:00Z\", \"runners\": [{\"name\": \"Devil's Sympathy\", \"number\": 1, \"bookmakers\": [{\"key\": \"betdeluxe\", \"open_price\": 1.95, \"close_price\": 2.0, \"high\": 2.0, \"low\": 1.95, \"move_pct\": 2.56, \"points_count\": 2, \"open_secs_to_jump\": 3596, \"close_secs_to_jump\": 1890, \"open_is_baseline\": true, \"points\": [{\"win_price\": 1.95, \"lay_price\": null, \"secs_to_jump\": 3596, \"captured_at\": \"2026-09-14T11:27:03.890930Z\"}, {\"win_price\": 2.0, \"lay_price\": null, \"secs_to_jump\": 1890, \"captured_at\": \"2026-09-14T11:55:30.482063Z\"}]}, {\"key\": \"betgold\", \"open_price\": 1.9, \"close_price\": 1.85, \"high\": 2.0, \"low\": 1.75, \"move_pct\": -2.63, \"points_count\": 9, \"open_secs_to_jump\": 3596, \"close_secs_to_jump\": 19, \"open_is_baseline\": true, \"points\": [{\"win_price\": 1.9, \"lay_price\": null, \"secs_to_jump\": 3596, \"captured_at\": \"2026-09-14T11:27:03.890930Z\"}, {\"win_price\": 1.95, \"lay_price\": null, \"secs_to_jump\": 3571, \"captured_at\": \"2026-09-14T11:27:28.967117Z\"}, {\"win_price\": 2.0, \"lay_price\": null, \"secs_to_jump\": 1177, \"captured_at\": \"2026-09-14T12:07:22.807876Z\"}, {\"win_price\": 1.95, \"lay_price\": null, \"secs_to_jump\": 270, \"captured_at\": \"2026-09-14T12:22:30.283804Z\"}, {\"win_price\": 1.9, \"lay_price\": null, \"secs_to_jump\": 240, \"captured_at\": \"2026-09-14T12:23:00.323156Z\"}, {\"win_price\": 1.85, \"lay_price\": null, \"secs_to_jump\": 165, \"captured_at\": \"2026-09-14T12:24:15.409220Z\"}, {\"win_price\": 1.8, \"lay_price\": null, \"secs_to_jump\": 84, \"captured_at\": \"2026-09-14T1  <<< clipped by mcp_probe --truncate 1800; full body was 49363 chars >>>",
+        "type": "text"
+      }
+    ],
+    "isError": false,
+    "structuredContent": {
+      "result": "{\"data\": {\"race_id\": \"de29eb14-1ad1-4fb2-94d9-ab3a588c38f2\", \"venue\": \"SANDOWN PARK\", \"venue_id\": \"sandown-park\", \"venue_canonical\": \"Sandown Park\", \"venue_site\": \"sandown\", \"race_number\": 11, \"category\": \"greyhound\", \"country\": \"AU\", \"start_time\": \"2026-09-14T12:27:00Z\", \"points_returned\": 345, \"truncated\": false, \"history_from\": \"2026-08-04T09:22:00Z\", \"runners\": [{\"name\": \"Devil's Sympathy\", \"number\": 1, \"bookmakers\": [{\"key\": \"betdeluxe\", \"open_price\": 1.95, \"close_price\": 2.0, \"high\": 2.0, \"low\": 1.95, \"move_pct\": 2.56, \"points_count\": 2, \"open_secs_to_jump\": 3596, \"close_secs_to_jump\": 1890, \"open_is_baseline\": true, \"points\": [{\"win_price\": 1.95, \"lay_price\": null, \"secs_to_jump\": 3596, \"captured_at\": \"2026-09-14T11:27:03.890930Z\"}, {\"win_price\": 2.0, \"lay_price\": null, \"secs_to_jump\": 1890, \"captured_at\": \"2026-09-14T11:55:30.482063Z\"}]}, {\"key\": \"betgold\", \"open_price\": 1.9, \"close_price\": 1.85, \"high\": 2.0, \"low\": 1.75, \"move_pct\": -2.63, \"points_count\": 9, \"open_secs_to_jump\": 3596, \"close_secs_to_jump\": 19, \"open_is_baseline\": true, \"points\": [{\"win_price\": 1.9, \"lay_price\": null, \"secs_to_jump\": 3596, \"captured_at\": \"2026-09-14T11:27:03.890930Z\"}, {\"win_price\": 1.95, \"lay_price\": null, \"secs_to_jump\": 3571, \"captured_at\": \"2026-09-14T11:27:28.967117Z\"}, {\"win_price\": 2.0, \"lay_price\": null, \"secs_to_jump\": 1177, \"captured_at\": \"2026-09-14T12:07:22.807876Z\"}, {\"win_price\": 1.95, \"lay_price\": null, \"secs_to_jump\": 270, \"captured_at\": \"2026-09-14T12:22:30.283804Z\"}, {\"win_price\": 1.9, \"lay_price\": null, \"secs_to_jump\": 240, \"captured_at\": \"2026-09-14T12:23:00.323156Z\"}, {\"win_price\": 1.85, \"lay_price\": null, \"secs_to_jump\": 165, \"captured_at\": \"2026-09-14T12:24:15.409220Z\"}, {\"win_price\": 1.8, \"lay_price\": null, \"secs_to_jump\": 84, \"captured_at\": \"2026-09-14T1  <<< clipped by mcp_probe --truncate 1800; full body was 49363 chars >>>"
+    }
+  }
+}
+

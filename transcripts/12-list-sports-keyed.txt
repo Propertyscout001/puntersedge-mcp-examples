@@ -1,0 +1,77 @@
+# mcp_probe 2026-09-15T09:19:55+1000
+# server: puntersedge-mcp
+# protocolVersion offered: 2025-06-18
+# key present in env: yes
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp_probe",
+      "version": "1.0.0"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "capabilities": {
+      "experimental": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "listChanged": false,
+        "subscribe": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Australian and New Zealand racing plus Australian sports odds from 14 Australian bookmakers. AU racing covers thoroughbred, greyhound and harness; NZ covers thoroughbred and harness. Racing lives under racing_* tools, NOT a sport key \u2014 there is no sport_key of 'horse-racing'. Every priced call costs credits (stated per tool); check_usage shows the monthly balance, and every result carries credits_remaining so you rarely need it. Prices are decimal odds in AUD markets. Two things worth knowing before you reason over a price: each quote carries its own age_seconds and stale flag, because a stalled scraper keeps serving its last value rather than erroring; and a large apparent edge on a market only one bookmaker is quoting is a data artefact, not an opportunity.",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "puntersedge",
+      "version": ""
+    }
+  }
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized"
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "list_sports",
+    "arguments": {}
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "content": [
+      {
+        "text": "{\"data\": [{\"key\": \"afl\", \"title\": \"AFL\", \"group\": \"Australian Rules\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"nrl\", \"title\": \"NRL\", \"group\": \"Rugby League\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"nba\", \"title\": \"NBA\", \"group\": \"Basketball\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"tennis_atp\", \"title\": \"Tennis ATP\", \"group\": \"Tennis\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"tennis_wta\", \"title\": \"Tennis WTA\", \"group\": \"Tennis\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"nfl\", \"title\": \"NFL\", \"group\": \"American Football\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"ncaaf\", \"title\": \"College Football\", \"group\": \"American Football\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"wnba\", \"title\": \"WNBA\", \"group\": \"Basketball\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"mlb\", \"title\": \"MLB\", \"group\": \"Baseball\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"nhl\", \"title\": \"NHL\", \"group\": \"Ice Hockey\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"mma\", \"title\": \"MMA/UFC\", \"group\": \"MMA\", \"active\": true, \"cached\": true, \"cache_age_seconds\":  <<< clipped by mcp_probe --truncate 1800; full body was 3548 chars >>>",
+        "type": "text"
+      }
+    ],
+    "isError": false,
+    "structuredContent": {
+      "result": "{\"data\": [{\"key\": \"afl\", \"title\": \"AFL\", \"group\": \"Australian Rules\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"nrl\", \"title\": \"NRL\", \"group\": \"Rugby League\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"nba\", \"title\": \"NBA\", \"group\": \"Basketball\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"tennis_atp\", \"title\": \"Tennis ATP\", \"group\": \"Tennis\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"tennis_wta\", \"title\": \"Tennis WTA\", \"group\": \"Tennis\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"nfl\", \"title\": \"NFL\", \"group\": \"American Football\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"ncaaf\", \"title\": \"College Football\", \"group\": \"American Football\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"wnba\", \"title\": \"WNBA\", \"group\": \"Basketball\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"mlb\", \"title\": \"MLB\", \"group\": \"Baseball\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"nhl\", \"title\": \"NHL\", \"group\": \"Ice Hockey\", \"active\": true, \"cached\": true, \"cache_age_seconds\": 185, \"canonical_event_id\": null, \"data_quality\": null}, {\"key\": \"mma\", \"title\": \"MMA/UFC\", \"group\": \"MMA\", \"active\": true, \"cached\": true, \"cache_age_seconds\":  <<< clipped by mcp_probe --truncate 1800; full body was 3548 chars >>>"
+    }
+  }
+}
+

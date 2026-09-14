@@ -1,0 +1,81 @@
+# mcp_probe 2026-09-15T09:19:50+1000
+# server: puntersedge-mcp
+# protocolVersion offered: 2025-06-18
+# key present in env: yes
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp_probe",
+      "version": "1.0.0"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "capabilities": {
+      "experimental": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "listChanged": false,
+        "subscribe": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Australian and New Zealand racing plus Australian sports odds from 14 Australian bookmakers. AU racing covers thoroughbred, greyhound and harness; NZ covers thoroughbred and harness. Racing lives under racing_* tools, NOT a sport key \u2014 there is no sport_key of 'horse-racing'. Every priced call costs credits (stated per tool); check_usage shows the monthly balance, and every result carries credits_remaining so you rarely need it. Prices are decimal odds in AUD markets. Two things worth knowing before you reason over a price: each quote carries its own age_seconds and stale flag, because a stalled scraper keeps serving its last value rather than erroring; and a large apparent edge on a market only one bookmaker is quoting is a data artefact, not an opportunity.",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "puntersedge",
+      "version": ""
+    }
+  }
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized"
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "racing_next_to_go",
+    "arguments": {
+      "country": "AU",
+      "num_races": 2,
+      "categories": "horse"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "content": [
+      {
+        "text": "{\"data\": [{\"race_id\": \"ce25a7d0-ee21-4fef-ba6b-0c6f8a35be83\", \"source_id\": \"src_e72d905ad5\", \"venue\": \"MORUYA\", \"venue_id\": \"moruya\", \"venue_canonical\": \"MORUYA\", \"venue_site\": \"moruya\", \"race_number\": 1, \"category\": \"horse\", \"start_time\": \"2026-09-15T03:25:00Z\", \"country\": \"AU\", \"race_name\": \"SCB DISTRIBUTORS LEGEND OF THE SOUTH OCTOBER 2ND M...\", \"distance_m\": 1435, \"track_condition\": \"Good (4)\", \"weather\": \"Light Rain\", \"places_paid\": 3, \"track_condition_changed_at\": \"2026-09-14T22:16:12.917164Z\", \"race_class\": \"Maiden\", \"conditions\": \"Maiden, Set Weights, Apprentices can claim.\", \"prize_total\": 27000, \"rail\": \"Out 3m from 1000m to 380m then cut away rail.\", \"track_name\": \"Main\", \"market_closed_at\": null, \"inplay_at\": null, \"market_state_source\": null, \"scratchings\": [], \"runners\": [{\"name\": \"Colorado Sun\", \"number\": 1, \"bookmakers\": [{\"key\": \"boostbet\", \"win_price\": 3.2, \"place_price\": 1.4, \"flucs\": [3.2, 3.1], \"last_update\": \"2026-09-14T23:17:15.508838Z\", \"age_seconds\": 155, \"stale\": false, \"refresh_tier\": \"card\", \"age_basis\": \"poll\"}, {\"key\": \"ladbrokes_au\", \"win_price\": 3.5, \"place_price\": 1.5, \"top2_price\": 2.0, \"top3_price\": 1.5, \"top4_price\": 1.24, \"source_url\": \"https://www.ladbrokes.com.au/racing/moruya/bb5116e4-7ecd-4ba3-bd83-8d11298b104f\", \"betslip_win_url\": \"https://www.ladbrokes.com.au/racing/moruya/bb5116e4-7ecd-4ba3-bd83-8d11298b104f/15d6a93a-bf9a-4589-b5c4-20224974fd24/fw\", \"betslip_place_url\": \"https://www.ladbrokes.com.au/racing/moruya/bb5116e4-7ecd-4ba3-bd83-8d11298b104f/15d6a93a-bf9a-4589-b5c4-20224974fd24/fp\", \"betslip_app_only\": true, \"last_update\": \"2026-09-14T23:19:08.790917Z\", \"age_seconds\": 42, \"stale\": false, \"refresh_tier\": \"card\", \"age_basis\": \"poll\"}, {\"key\": \"unibet\", \"win_price\": 3.3, \"place_price\": 1.5, \"source_url\": \"https://www.unib  <<< clipped by mcp_probe --truncate 1800; full body was 67956 chars >>>",
+        "type": "text"
+      }
+    ],
+    "isError": false,
+    "structuredContent": {
+      "result": "{\"data\": [{\"race_id\": \"ce25a7d0-ee21-4fef-ba6b-0c6f8a35be83\", \"source_id\": \"src_e72d905ad5\", \"venue\": \"MORUYA\", \"venue_id\": \"moruya\", \"venue_canonical\": \"MORUYA\", \"venue_site\": \"moruya\", \"race_number\": 1, \"category\": \"horse\", \"start_time\": \"2026-09-15T03:25:00Z\", \"country\": \"AU\", \"race_name\": \"SCB DISTRIBUTORS LEGEND OF THE SOUTH OCTOBER 2ND M...\", \"distance_m\": 1435, \"track_condition\": \"Good (4)\", \"weather\": \"Light Rain\", \"places_paid\": 3, \"track_condition_changed_at\": \"2026-09-14T22:16:12.917164Z\", \"race_class\": \"Maiden\", \"conditions\": \"Maiden, Set Weights, Apprentices can claim.\", \"prize_total\": 27000, \"rail\": \"Out 3m from 1000m to 380m then cut away rail.\", \"track_name\": \"Main\", \"market_closed_at\": null, \"inplay_at\": null, \"market_state_source\": null, \"scratchings\": [], \"runners\": [{\"name\": \"Colorado Sun\", \"number\": 1, \"bookmakers\": [{\"key\": \"boostbet\", \"win_price\": 3.2, \"place_price\": 1.4, \"flucs\": [3.2, 3.1], \"last_update\": \"2026-09-14T23:17:15.508838Z\", \"age_seconds\": 155, \"stale\": false, \"refresh_tier\": \"card\", \"age_basis\": \"poll\"}, {\"key\": \"ladbrokes_au\", \"win_price\": 3.5, \"place_price\": 1.5, \"top2_price\": 2.0, \"top3_price\": 1.5, \"top4_price\": 1.24, \"source_url\": \"https://www.ladbrokes.com.au/racing/moruya/bb5116e4-7ecd-4ba3-bd83-8d11298b104f\", \"betslip_win_url\": \"https://www.ladbrokes.com.au/racing/moruya/bb5116e4-7ecd-4ba3-bd83-8d11298b104f/15d6a93a-bf9a-4589-b5c4-20224974fd24/fw\", \"betslip_place_url\": \"https://www.ladbrokes.com.au/racing/moruya/bb5116e4-7ecd-4ba3-bd83-8d11298b104f/15d6a93a-bf9a-4589-b5c4-20224974fd24/fp\", \"betslip_app_only\": true, \"last_update\": \"2026-09-14T23:19:08.790917Z\", \"age_seconds\": 42, \"stale\": false, \"refresh_tier\": \"card\", \"age_basis\": \"poll\"}, {\"key\": \"unibet\", \"win_price\": 3.3, \"place_price\": 1.5, \"source_url\": \"https://www.unib  <<< clipped by mcp_probe --truncate 1800; full body was 67956 chars >>>"
+    }
+  }
+}
+

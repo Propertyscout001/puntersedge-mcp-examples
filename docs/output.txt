@@ -1,0 +1,325 @@
+PuntersEdge MCP examples - captured terminal output
+Run: 2026-09-15 09:30:15 AEST
+Host: Darwin 24.6.0 arm64
+node: v22.22.0
+probe python: Python 3.12.13
+server: puntersedge-mcp 0.2.1
+
+The Python server needs Python 3.10+. The system python3 on this machine is 3.9.6,
+so the server was installed into a 3.12 virtualenv and that venv's bin directory
+was put on PATH - which is why "probe python" above reads 3.12 here. The probe
+itself is standard library only and was separately confirmed to run the same
+handshake under /usr/bin/python3 3.9.6.
+
+Sections 1-5 run with PUNTERSEDGE_API_KEY stripped from the environment, so the
+"key present in env: no" line below is a fact rather than a label. Sections 6-8
+use an internal unlimited build key, which is why credits_remaining reads
+"unlimited" rather than a number.
+
+
+########## 1. keyless: handshake + tool list, Python server
+
+$ python3 tools/mcp_probe.py --list --names-only -- puntersedge-mcp
+
+# mcp_probe 2026-09-15T09:30:15+1000
+# server: puntersedge-mcp
+# protocolVersion offered: 2025-06-18
+# key present in env: no
+
+initialize ok: puntersedge  (protocol 2025-06-18)
+
+26 tools:
+  racing_next_to_go            Next Australian/NZ races to jump, with runners and live per-bookmaker prices.     COST: 2 credit
+  racing_best_odds             Best win, place and tote price per runner across every bookmaker, with the book     offering it 
+  racing_movers                Consensus firmers and drifters in the live racing window. COST: 3 credits.     direction must be
+  racing_changes               Races and prices that changed since a timestamp. COST: 2 credits.     THE RIGHT WAY TO WATCH A M
+  racing_events                Scheduled races in a forward window, WITHOUT prices. COST: 1 credit.     Cheaper than next-to-go
+  racing_track_conditions      Track condition, weather and rail position: current state plus the day's change     log. COST: 1
+  racing_acceptances           Full-day AU thoroughbred acceptance card: every meeting, race and runner.     COST: 2 credits. d
+  racing_venues                Canonical venue directory: venue_id, display name, physical site, country and the     codes run 
+  racing_results               Settled AU/NZ race results. COST: 2 credits.     Carries `placings` (the dividend-bearing top th
+  racing_results_coverage      What the results field coverage actually IS, measured rather than promised.     COST: 1 credit. 
+  racing_price_history         Recorded per-bookmaker price ticks for one race — the market movement record.     COST: 5 credit
+  racing_closing_lines         The permanent closing-line and result archive — the dataset for measuring closing     line value
+  racing_closing_lines_coverage What the closing-line archive holds: floor date, row and race counts, how much is     a true clo
+  horse_form                   Thoroughbred form, career record and profile for ONE horse. COST: 3 credits.     `horse` is a na
+  greyhound_form               Greyhound form history for one dog. COST: 3 credits. `dog` is a name or a Topaz     dogId; names
+  greyhound_stats              One greyhound's record broken down by track, distance, box or grade.     COST: 3 credits. `by` c
+  jockey_stats                 Jockey premiership leaderboards, or one jockey by (partial) name. COST: 2 credits.     state: AU
+  trainer_stats                Trainer premiership leaderboards, or one trainer by (partial) name.     COST: 2 credits. Same st
+  list_sports                  The sport catalogue: every queryable sport_key with its display name.     COST: 1 credit. Racing
+  sports_odds                  Head-to-head, spread and total prices per bookmaker for one sport's upcoming     fixtures (sport
+  best_odds                    Best available price per outcome across bookmakers for one sport.     COST: 3 credits.
+  arb_best_prices              Cross-book price comparison per selection, with every bookmaker's quote alongside     the best. 
+  check_usage                  Current key's plan, monthly credit allowance, credits used and reset date.     COST: free. You r
+  connector_health             Per-bookmaker feed freshness: last_ok, status, records written. COST: free.     THIS IS HOW YOU 
+  demo_next_to_go              Free no-key sandbox sample of racing_next_to_go (3 races, 5 runners, 3 books,     truncated). CO
+  demo_best_odds               Free no-key sandbox sample of sports best-odds with arb detection. COST: free.     `sport` is op
+
+
+########## 2. keyless: a real tool call, protocol frames included
+
+$ python3 tools/mcp_probe.py --call demo_next_to_go --truncate 400 -- puntersedge-mcp
+
+# mcp_probe 2026-09-15T09:30:16+1000
+# server: puntersedge-mcp
+# protocolVersion offered: 2025-06-18
+# key present in env: no
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp_probe",
+      "version": "1.0.0"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "capabilities": {
+      "experimental": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "listChanged": false,
+        "subscribe": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Australian and New Zealand racing plus Australian sports odds from 14 Australian bookmakers. AU racing covers thoroughbred, greyhound and harness; NZ covers thoroughbred and harness. Racing lives under racing_* tools, NOT a sport key \u2014 there is no sport_key of 'horse-racing'. Every priced call costs credits (stated per tool); check_usage shows the monthly balance, and every result carries credits_remaining so you rarely need it. Prices are decimal odds in AUD markets. Two things worth knowing before you reason over a price: each quote carries its own age_seconds and stale flag, because a stalled scraper keeps serving its last value rather than erroring; and a large apparent edge on a market only one bookmaker is quoting is a data artefact, not an opportunity.",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "puntersedge",
+      "version": ""
+    }
+  }
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized"
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "demo_next_to_go",
+    "arguments": {}
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "content": [
+      {
+        "text": "{\"data\": {\"demo\": true, \"note\": \"Free sandbox sample (truncated). Get a free API key for full data: https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"signup_url\": \"https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"shape\": \"Sandbox teaser: 3 races, 5 runners, best 3 prices, wrapped in this envelope. GET /v1/racing/next-to-go returns a bare array of full  <<< clipped by mcp_probe --truncate 400; full body was 7659 chars >>>",
+        "type": "text"
+      }
+    ],
+    "isError": false,
+    "structuredContent": {
+      "result": "{\"data\": {\"demo\": true, \"note\": \"Free sandbox sample (truncated). Get a free API key for full data: https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"signup_url\": \"https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"shape\": \"Sandbox teaser: 3 races, 5 runners, best 3 prices, wrapped in this envelope. GET /v1/racing/next-to-go returns a bare array of full  <<< clipped by mcp_probe --truncate 400; full body was 7659 chars >>>"
+    }
+  }
+}
+
+
+
+########## 3. keyless: the TypeScript server, fetched by npx
+
+$ python3 tools/mcp_probe.py --list --names-only -- npx -y github:Propertyscout001/puntersedge-mcp
+
+# mcp_probe 2026-09-15T09:30:16+1000
+# server: npx -y github:Propertyscout001/puntersedge-mcp
+# protocolVersion offered: 2025-06-18
+# key present in env: no
+
+initialize ok: puntersedge 0.1.0 (protocol 2025-06-18)
+
+9 tools:
+  racing_next_to_go            The next Australian horse, greyhound and harness races about to jump, with EVERY bookmaker's pri
+  racing_best_odds             The single best available price for each runner in upcoming Australian races, and which bookmake
+  racing_events                The upcoming Australian race schedule — venues, race numbers and jump times, without runner pric
+  racing_results               Settled results for Australian races that have already run — finishing order and dividends. Use 
+  racing_movers                Runners whose price has moved sharply across the market — firming (shortening) or drifting (leng
+  list_sports                  Every sport and competition this API currently covers, with its sport_key. Call this FIRST if yo
+  get_sports_odds              Head-to-head and other market odds for one sport, from every bookmaker covering it. Use for 'odd
+  get_best_odds                The single best price per selection for one sport, and which bookmaker offers it. Use when the u
+  account_usage                This API key's credit usage and remaining balance for the month. Use it when a call has been ref
+# --- server stderr ---
+# puntersedge-mcp 0.1.0 ready (https://api.puntersedge.online/v1) — PUNTERSEDGE_API_KEY not set
+
+
+########## 4. the curl mapping, for anyone not running an assistant
+
+$ bash curl/equivalents.sh --list
+
+MCP TOOL                       KEY?   HTTP
+------------------------------ ------ ----
+demo_next_to_go                no     GET https://api.puntersedge.online/v1/demo/racing/next-to-go
+demo_best_odds                 no     GET https://api.puntersedge.online/v1/demo/best-odds?sport=afl
+racing_next_to_go              yes    GET https://api.puntersedge.online/v1/racing/next-to-go?country=AU&num_races=3&categories=horse
+racing_best_odds               yes    GET https://api.puntersedge.online/v1/racing/best-odds?country=AU&num_races=1&categories=horse
+racing_movers                  yes    GET https://api.puntersedge.online/v1/racing/movers?country=AU&min_books=2
+racing_changes                 yes    GET https://api.puntersedge.online/v1/racing/changes?country=AU&since=2026-09-15T00:00:00Z
+racing_events                  yes    GET https://api.puntersedge.online/v1/racing/events?country=AU&hours_ahead=6
+racing_track_conditions        yes    GET https://api.puntersedge.online/v1/racing/track-conditions
+racing_acceptances             yes    GET https://api.puntersedge.online/v1/racing/acceptances
+racing_venues                  yes    GET https://api.puntersedge.online/v1/racing/venues
+racing_results                 yes    GET https://api.puntersedge.online/v1/racing/results?country=AU&limit=5
+racing_results_coverage        yes    GET https://api.puntersedge.online/v1/racing/results/coverage
+racing_price_history           yes    GET https://api.puntersedge.online/v1/racing/price-history?race_id=REPLACE_WITH_RACE_ID
+racing_closing_lines           yes    GET https://api.puntersedge.online/v1/racing/closing-lines?limit=5
+racing_closing_lines_coverage  yes    GET https://api.puntersedge.online/v1/racing/closing-lines/coverage
+horse_form                     yes    GET https://api.puntersedge.online/v1/racing/horses/form?horse=REPLACE_WITH_HORSE_NAME
+greyhound_form                 yes    GET https://api.puntersedge.online/v1/racing/greyhounds/form?dog=REPLACE_WITH_DOG_NAME&limit=5
+greyhound_stats                yes    GET https://api.puntersedge.online/v1/racing/greyhounds/stats?dog=REPLACE_WITH_DOG_NAME&by=track
+jockey_stats                   yes    GET https://api.puntersedge.online/v1/racing/jockeys/stats?state=NSW
+trainer_stats                  yes    GET https://api.puntersedge.online/v1/racing/trainers/stats?state=NSW
+list_sports                    yes    GET https://api.puntersedge.online/v1/sports
+sports_odds                    yes    GET https://api.puntersedge.online/v1/sports/afl/odds?markets=h2h
+best_odds                      yes    GET https://api.puntersedge.online/v1/best-odds/afl
+arb_best_prices                yes    GET https://api.puntersedge.online/v1/arb/best-prices?sport_key=afl
+check_usage                    yes    GET https://api.puntersedge.online/v1/usage
+connector_health               yes    GET https://api.puntersedge.online/v1/health
+
+
+########## 5. keyless curl, trimmed
+
+$ bash curl/equivalents.sh demo_next_to_go | head -c 700
+
+# demo_next_to_go
+curl -s --compressed 'https://api.puntersedge.online/v1/demo/racing/next-to-go'
+
+{"type":"https://puntersedge.online/errors/rate-limit","title":"Demo rate limit reached (30/min per IP). Get a free API key for higher limits: https://puntersedge.online/api?utm_source=demo_api&utm_medium=ratelimit","status":429,"detail":"Demo rate limit reached (30/min per IP). Get a free API key for higher limits: https://puntersedge.online/api?utm_source=demo_api&utm_medium=ratelimit"}
+
+  [...]
+
+
+########## 6. keyed: --extract decodes the double-encoded body
+
+$ python3 tools/mcp_probe.py --call racing_next_to_go \
+      --args '{"country":"AU","num_races":1,"categories":"horse"}' --extract -- puntersedge-mcp | head -40
+
+{
+  "data": [
+    {
+      "race_id": "2e51b852-f9d6-4ddd-be4a-7e89c2d0a442",
+      "source_id": "src_d87d4e14af",
+      "venue": "WELLINGTON",
+      "venue_id": "wellington",
+      "venue_canonical": "WELLINGTON",
+      "venue_site": "wellington",
+      "race_number": 1,
+      "category": "horse",
+      "start_time": "2026-09-15T03:10:00Z",
+      "country": "AU",
+      "race_name": "MBA WEALTH SOLUTIONS GOLD CIRCLE COUNTRY BOOSTED C...",
+      "distance_m": 1100,
+      "track_condition": "Soft (5)",
+      "weather": "Clear Sky",
+      "places_paid": 3,
+      "track_condition_changed_at": null,
+      "race_class": "Class 1",
+      "conditions": "Class 1, Handicap, Minimum Weight 55kg, Apprentices can claim.",
+      "prize_total": 35000,
+      "rail": "True",
+      "track_name": "Main",
+      "market_closed_at": null,
+      "inplay_at": null,
+      "market_state_source": null,
+      "scratchings": [
+        {
+          "name": "Willingham",
+          "number": 1,
+          "barrier": 12,
+          "scratched_at": "2026-09-14T21:57:04Z"
+        },
+        {
+          "name": "Street Skater",
+          "number": 3,
+          "barrier": 6,
+          "scratched_at": "2026-09-14T03:22:18Z"
+        },
+  [...]
+
+
+########## 7. keyed: every tool called once, shapes recorded
+
+$ python3 tools/probe_all_tools.py -- puntersedge-mcp
+
+arb_best_prices                ok
+best_odds                      ok
+check_usage                    FAILED HTTP 500
+connector_health               ok
+demo_best_odds                 ok
+demo_next_to_go                FAILED HTTP 429
+greyhound_form                 ok
+greyhound_stats                ok
+horse_form                     ok
+jockey_stats                   ok
+list_sports                    ok
+racing_acceptances             ok
+racing_best_odds               ok
+racing_changes                 ok
+racing_closing_lines           ok
+racing_closing_lines_coverage  ok
+racing_events                  ok
+racing_movers                  ok
+racing_next_to_go              ok
+racing_price_history           ok
+racing_results                 ok
+racing_results_coverage        ok
+racing_track_conditions        ok
+racing_venues                  ok
+sports_odds                    ok
+trainer_stats                  ok
+
+wrote /Users/hamish/gh-repos/puntersedge-mcp-examples/docs/tool-shapes.json
+
+
+########## 8. keyed curl, showing the credit headers
+
+$ PE_API_KEY=... bash curl/equivalents.sh racing_movers | head -25
+
+# racing_movers
+curl -s --compressed -H "X-API-Key: $PE_API_KEY" 'https://api.puntersedge.online/v1/racing/movers?country=AU&min_books=2'
+
+HTTP/2 200 
+server: nginx/1.29.5
+date: Mon, 14 Sep 2026 23:30:33 GMT
+content-type: application/json
+content-length: 2
+x-ratelimit-limit: 2000
+x-ratelimit-remaining: 1924
+x-ratelimit-reset: 60
+x-credits-cost: 3
+x-credits-used: 0
+x-credits-limit: unlimited
+x-credits-remaining: unlimited
+x-request-id: b237ee7895cf07705fc275d33685ba76
+x-ratelimit-policy: per-minute per API key by plan; credits per plan
+x-content-type-options: nosniff
+x-frame-options: DENY
+referrer-policy: strict-origin-when-cross-origin
+strict-transport-security: max-age=31536000
+
+[]
+  [...]
+
+end of capture.

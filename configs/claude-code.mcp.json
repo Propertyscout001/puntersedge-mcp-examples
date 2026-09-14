@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "puntersedge": {
+      "type": "stdio",
+      "command": "puntersedge-mcp",
+      "args": [],
+      "env": {
+        "PUNTERSEDGE_API_KEY": "PUT-YOUR-KEY-HERE"
+      }
+    }
+  }
+}

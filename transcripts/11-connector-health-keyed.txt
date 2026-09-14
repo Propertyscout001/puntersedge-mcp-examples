@@ -1,0 +1,77 @@
+# mcp_probe 2026-09-15T09:19:54+1000
+# server: puntersedge-mcp
+# protocolVersion offered: 2025-06-18
+# key present in env: yes
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp_probe",
+      "version": "1.0.0"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "capabilities": {
+      "experimental": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "listChanged": false,
+        "subscribe": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Australian and New Zealand racing plus Australian sports odds from 14 Australian bookmakers. AU racing covers thoroughbred, greyhound and harness; NZ covers thoroughbred and harness. Racing lives under racing_* tools, NOT a sport key \u2014 there is no sport_key of 'horse-racing'. Every priced call costs credits (stated per tool); check_usage shows the monthly balance, and every result carries credits_remaining so you rarely need it. Prices are decimal odds in AUD markets. Two things worth knowing before you reason over a price: each quote carries its own age_seconds and stale flag, because a stalled scraper keeps serving its last value rather than erroring; and a large apparent edge on a market only one bookmaker is quoting is a data artefact, not an opportunity.",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "puntersedge",
+      "version": ""
+    }
+  }
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized"
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "connector_health",
+    "arguments": {}
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "content": [
+      {
+        "text": "{\"data\": [{\"connector\": \"realbookie\", \"last_ok\": null, \"last_poll\": \"2026-08-24T06:15:13.333843\", \"status\": \"error\", \"records_written\": 0, \"message\": null}, {\"connector\": \"winnersbet\", \"last_ok\": null, \"last_poll\": \"2026-08-24T06:16:11.870391\", \"status\": \"error\", \"records_written\": 0, \"message\": null}, {\"connector\": \"dafabet\", \"last_ok\": null, \"last_poll\": \"2026-08-24T06:15:13.338529\", \"status\": \"error\", \"records_written\": 0, \"message\": null}, {\"connector\": \"premiumbet\", \"last_ok\": null, \"last_poll\": \"2026-08-24T06:15:13.343230\", \"status\": \"error\", \"records_written\": 0, \"message\": null}, {\"connector\": \"ponybet\", \"last_ok\": null, \"last_poll\": \"2026-08-24T06:15:13.347816\", \"status\": \"error\", \"records_written\": 0, \"message\": null}, {\"connector\": \"stablebet\", \"last_ok\": null, \"last_poll\": \"2026-08-24T06:15:13.352198\", \"status\": \"error\", \"records_written\": 0, \"message\": null}, {\"connector\": \"pointsbetau\", \"last_ok\": \"2026-09-14T23:19:41.197030\", \"last_poll\": \"2026-09-14T23:19:41.197030\", \"status\": \"ok\", \"records_written\": 36, \"message\": null}, {\"connector\": \"sportsbet\", \"last_ok\": \"2026-09-14T23:19:39.627516\", \"last_poll\": \"2026-09-14T23:19:41.868285\", \"status\": \"ok\", \"records_written\": 0, \"message\": null}, {\"connector\": \"betgold\", \"last_ok\": \"2026-09-14T23:17:31.571589\", \"last_poll\": \"2026-09-14T23:19:44.401866\", \"status\": \"ok\", \"records_written\": 0, \"message\": null}, {\"connector\": \"tab\", \"last_ok\": \"2026-09-14T23:19:50.894444\", \"last_poll\": \"2026-09-14T23:19:50.894444\", \"status\": \"ok\", \"records_written\": 54, \"message\": null}, {\"connector\": \"unibet\", \"last_ok\": \"2026-09-14T23:19:43.498906\", \"last_poll\": \"2026-09-14T23:19:43.498906\", \"status\": \"ok\", \"records_written\": 58, \"message\": null}, {\"connector\": \"ladbrokes_au\", \"last_ok\": \"2026-09-14T23:19:47.124027\", \"last_poll\": \"2026-09-14T23:19:47.124027\", \"status\": \"ok\", \"records_written\": 213, \"message\": null}, {\"connector\": \"neds\", \"last_ok\": \"2026-09-14T23:19:43.151266\", \"last_poll\": \"2026-09-14T23:19:43.151266\", \"status\": \"ok\", \"records_written\": 33, \"message\": null}, {\"connector\": \"betdeluxe\", \"last_ok\": \"2026-09-14T23:19:44.347967\", \"last_poll\": \"2026-09-14T23:19:44.347967\", \"status\": \"ok\", \"records_written\": 43, \"  <<< clipped by mcp_probe --truncate 2200; full body was 3221 chars >>>",
+        "type": "text"
+      }
+    ],
+    "isError": false,
+    "structuredContent": {
+      "result": "{\"data\": [{\"connector\": \"realbookie\", \"last_ok\": null, \"last_poll\": \"2026-08-24T06:15:13.333843\", \"status\": \"error\", \"records_written\": 0, \"message\": null}, {\"connector\": \"winnersbet\", \"last_ok\": null, \"last_poll\": \"2026-08-24T06:16:11.870391\", \"status\": \"error\", \"records_written\": 0, \"message\": null}, {\"connector\": \"dafabet\", \"last_ok\": null, \"last_poll\": \"2026-08-24T06:15:13.338529\", \"status\": \"error\", \"records_written\": 0, \"message\": null}, {\"connector\": \"premiumbet\", \"last_ok\": null, \"last_poll\": \"2026-08-24T06:15:13.343230\", \"status\": \"error\", \"records_written\": 0, \"message\": null}, {\"connector\": \"ponybet\", \"last_ok\": null, \"last_poll\": \"2026-08-24T06:15:13.347816\", \"status\": \"error\", \"records_written\": 0, \"message\": null}, {\"connector\": \"stablebet\", \"last_ok\": null, \"last_poll\": \"2026-08-24T06:15:13.352198\", \"status\": \"error\", \"records_written\": 0, \"message\": null}, {\"connector\": \"pointsbetau\", \"last_ok\": \"2026-09-14T23:19:41.197030\", \"last_poll\": \"2026-09-14T23:19:41.197030\", \"status\": \"ok\", \"records_written\": 36, \"message\": null}, {\"connector\": \"sportsbet\", \"last_ok\": \"2026-09-14T23:19:39.627516\", \"last_poll\": \"2026-09-14T23:19:41.868285\", \"status\": \"ok\", \"records_written\": 0, \"message\": null}, {\"connector\": \"betgold\", \"last_ok\": \"2026-09-14T23:17:31.571589\", \"last_poll\": \"2026-09-14T23:19:44.401866\", \"status\": \"ok\", \"records_written\": 0, \"message\": null}, {\"connector\": \"tab\", \"last_ok\": \"2026-09-14T23:19:50.894444\", \"last_poll\": \"2026-09-14T23:19:50.894444\", \"status\": \"ok\", \"records_written\": 54, \"message\": null}, {\"connector\": \"unibet\", \"last_ok\": \"2026-09-14T23:19:43.498906\", \"last_poll\": \"2026-09-14T23:19:43.498906\", \"status\": \"ok\", \"records_written\": 58, \"message\": null}, {\"connector\": \"ladbrokes_au\", \"last_ok\": \"2026-09-14T23:19:47.124027\", \"last_poll\": \"2026-09-14T23:19:47.124027\", \"status\": \"ok\", \"records_written\": 213, \"message\": null}, {\"connector\": \"neds\", \"last_ok\": \"2026-09-14T23:19:43.151266\", \"last_poll\": \"2026-09-14T23:19:43.151266\", \"status\": \"ok\", \"records_written\": 33, \"message\": null}, {\"connector\": \"betdeluxe\", \"last_ok\": \"2026-09-14T23:19:44.347967\", \"last_poll\": \"2026-09-14T23:19:44.347967\", \"status\": \"ok\", \"records_written\": 43, \"  <<< clipped by mcp_probe --truncate 2200; full body was 3221 chars >>>"
+    }
+  }
+}
+

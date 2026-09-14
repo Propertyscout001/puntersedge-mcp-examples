@@ -1,0 +1,77 @@
+# mcp_probe 2026-09-15T09:19:46+1000
+# server: puntersedge-mcp
+# protocolVersion offered: 2025-06-18
+# key present in env: no
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp_probe",
+      "version": "1.0.0"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "capabilities": {
+      "experimental": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "listChanged": false,
+        "subscribe": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Australian and New Zealand racing plus Australian sports odds from 14 Australian bookmakers. AU racing covers thoroughbred, greyhound and harness; NZ covers thoroughbred and harness. Racing lives under racing_* tools, NOT a sport key \u2014 there is no sport_key of 'horse-racing'. Every priced call costs credits (stated per tool); check_usage shows the monthly balance, and every result carries credits_remaining so you rarely need it. Prices are decimal odds in AUD markets. Two things worth knowing before you reason over a price: each quote carries its own age_seconds and stale flag, because a stalled scraper keeps serving its last value rather than erroring; and a large apparent edge on a market only one bookmaker is quoting is a data artefact, not an opportunity.",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "puntersedge",
+      "version": ""
+    }
+  }
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized"
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "demo_next_to_go",
+    "arguments": {}
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "content": [
+      {
+        "text": "{\"data\": {\"demo\": true, \"note\": \"Free sandbox sample (truncated). Get a free API key for full data: https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"signup_url\": \"https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"shape\": \"Sandbox teaser: 3 races, 5 runners, best 3 prices, wrapped in this envelope. GET /v1/racing/next-to-go returns a bare array of full race objects. race_id matches, so anything you build here extends to /v1/racing/price-history, /results and /closing-lines.\", \"races\": [{\"race_id\": \"e79e50b1-bc25-4d1d-976c-6b34d0b6426c\", \"venue\": \"Angle Park\", \"race_number\": 1, \"category\": \"greyhound\", \"start_time\": \"2026-09-15T01:38:00Z\", \"country\": \"AU\", \"runners\": [{\"name\": \"Alia Rose\", \"number\": 1, \"bookmakers\": [{\"key\": \"tab\", \"win_price\": 14.0, \"source_url\": \"https://www.tab.com.au/racing/2026-09-15/ANGLE-PARK/ANG/G/1\"}, {\"key\": \"pointsbetau\", \"win_price\": 14.0, \"source_url\": \"https://pointsbet.com.au/racing/Greyhound/AUS/Angle-Park/race/115173313\"}, {\"key\": \"sportsbet\", \"win_price\": 13.0, \"source_url\": \"https://www.sportsbet.com.au/greyhound-racing/australia-nz/angle-park/race-1-10922417\"}]}, {\"name\": \"Sandy Knuckles\", \"number\": 2, \"bookmakers\": [{\"key\": \"tab\", \"win_price\": 4.8, \"source_url\": \"https://www.tab.com.au/racing/2026-09-15/ANGLE-PARK/ANG/G/1\"}, {\"key\": \"sportsbet\", \"win_price\": 4.6, \"source_url\": \"https://www.sports  <<< clipped by mcp_probe --truncate 1400; full body was 7714 chars >>>",
+        "type": "text"
+      }
+    ],
+    "isError": false,
+    "structuredContent": {
+      "result": "{\"data\": {\"demo\": true, \"note\": \"Free sandbox sample (truncated). Get a free API key for full data: https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"signup_url\": \"https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"shape\": \"Sandbox teaser: 3 races, 5 runners, best 3 prices, wrapped in this envelope. GET /v1/racing/next-to-go returns a bare array of full race objects. race_id matches, so anything you build here extends to /v1/racing/price-history, /results and /closing-lines.\", \"races\": [{\"race_id\": \"e79e50b1-bc25-4d1d-976c-6b34d0b6426c\", \"venue\": \"Angle Park\", \"race_number\": 1, \"category\": \"greyhound\", \"start_time\": \"2026-09-15T01:38:00Z\", \"country\": \"AU\", \"runners\": [{\"name\": \"Alia Rose\", \"number\": 1, \"bookmakers\": [{\"key\": \"tab\", \"win_price\": 14.0, \"source_url\": \"https://www.tab.com.au/racing/2026-09-15/ANGLE-PARK/ANG/G/1\"}, {\"key\": \"pointsbetau\", \"win_price\": 14.0, \"source_url\": \"https://pointsbet.com.au/racing/Greyhound/AUS/Angle-Park/race/115173313\"}, {\"key\": \"sportsbet\", \"win_price\": 13.0, \"source_url\": \"https://www.sportsbet.com.au/greyhound-racing/australia-nz/angle-park/race-1-10922417\"}]}, {\"name\": \"Sandy Knuckles\", \"number\": 2, \"bookmakers\": [{\"key\": \"tab\", \"win_price\": 4.8, \"source_url\": \"https://www.tab.com.au/racing/2026-09-15/ANGLE-PARK/ANG/G/1\"}, {\"key\": \"sportsbet\", \"win_price\": 4.6, \"source_url\": \"https://www.sports  <<< clipped by mcp_probe --truncate 1400; full body was 7714 chars >>>"
+    }
+  }
+}
+

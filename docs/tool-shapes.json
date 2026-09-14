@@ -1,0 +1,826 @@
+{
+  "captured_at": "2026-09-14T23:33:30Z",
+  "server_command": "puntersedge-mcp",
+  "server_name": "puntersedge",
+  "server_version": "",
+  "key_present": true,
+  "tool_count": 26,
+  "race_id_used_for_price_history": "de29eb14-1ad1-4fb2-94d9-ab3a588c38f2",
+  "tools": {
+    "arb_best_prices": {
+      "arguments": {
+        "sport_key": "afl"
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "array",
+          "length": 3,
+          "first_item_keys": [
+            "away_team",
+            "commence_time",
+            "home_team",
+            "id",
+            "selections",
+            "sport_key"
+          ]
+        }
+      },
+      "credits_cost": "2"
+    },
+    "best_odds": {
+      "arguments": {
+        "sport_key": "afl"
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "array",
+          "length": 3,
+          "first_item_keys": [
+            "arb_exists",
+            "arb_profit_pct",
+            "away_team",
+            "commence_time",
+            "data_age_seconds",
+            "freshest_age_seconds",
+            "home_team",
+            "id",
+            "selections",
+            "sport_key",
+            "stale",
+            "stale_bookmakers"
+          ]
+        }
+      },
+      "credits_cost": "3"
+    },
+    "check_usage": {
+      "arguments": {},
+      "is_error_flag": false,
+      "ok": false,
+      "error": "HTTP 500",
+      "hint": null
+    },
+    "connector_health": {
+      "arguments": {},
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "data"
+        ],
+        "data": {
+          "type": "array",
+          "length": 20,
+          "first_item_keys": [
+            "connector",
+            "last_ok",
+            "last_poll",
+            "message",
+            "records_written",
+            "status"
+          ]
+        }
+      },
+      "credits_cost": null
+    },
+    "demo_best_odds": {
+      "arguments": {
+        "sport": "afl"
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "data"
+        ],
+        "data": {
+          "type": "object",
+          "keys": [
+            "cached",
+            "demo",
+            "events",
+            "note",
+            "signup_url",
+            "sport"
+          ]
+        }
+      },
+      "credits_cost": null
+    },
+    "demo_next_to_go": {
+      "arguments": {},
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "data"
+        ],
+        "data": {
+          "type": "object",
+          "keys": [
+            "cached",
+            "demo",
+            "note",
+            "races",
+            "shape",
+            "signup_url"
+          ]
+        }
+      },
+      "credits_cost": null
+    },
+    "greyhound_form": {
+      "arguments": {
+        "limit": 3,
+        "dog": "Alia Rose"
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "object",
+          "keys": [
+            "ambiguous",
+            "candidates",
+            "dog_id",
+            "dog_name",
+            "runs",
+            "source"
+          ]
+        }
+      },
+      "credits_cost": "3"
+    },
+    "greyhound_stats": {
+      "arguments": {
+        "by": "track",
+        "dog": "Alia Rose"
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "object",
+          "keys": [
+            "ambiguous",
+            "candidates",
+            "dog_id",
+            "dog_name",
+            "group_by",
+            "groups",
+            "source"
+          ]
+        }
+      },
+      "credits_cost": "3"
+    },
+    "horse_form": {
+      "arguments": {
+        "horse": "Fearn Trick"
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "object",
+          "keys": [
+            "ambiguous",
+            "candidates",
+            "career",
+            "horse_name",
+            "profile",
+            "runner_ref",
+            "runs",
+            "source"
+          ]
+        }
+      },
+      "credits_cost": "3"
+    },
+    "jockey_stats": {
+      "arguments": {
+        "state": "NSW"
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "object",
+          "keys": [
+            "name",
+            "role",
+            "rows",
+            "scope",
+            "season_start_year",
+            "source",
+            "state"
+          ]
+        }
+      },
+      "credits_cost": "2"
+    },
+    "list_sports": {
+      "arguments": {},
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "array",
+          "length": 20,
+          "first_item_keys": [
+            "active",
+            "cache_age_seconds",
+            "cached",
+            "canonical_event_id",
+            "data_quality",
+            "group",
+            "key",
+            "title"
+          ]
+        }
+      },
+      "credits_cost": "1"
+    },
+    "racing_acceptances": {
+      "arguments": {},
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "object",
+          "keys": [
+            "as_of",
+            "completeness",
+            "date",
+            "date_status",
+            "declared_count",
+            "declared_remaining_count",
+            "declared_scratched_count",
+            "emergency_count",
+            "meeting_count",
+            "meetings",
+            "note",
+            "race_count",
+            "runner_count",
+            "scratched_count",
+            "unscratched_count"
+          ]
+        }
+      },
+      "credits_cost": "2"
+    },
+    "racing_best_odds": {
+      "arguments": {
+        "country": "AU",
+        "num_races": 1,
+        "categories": "horse"
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "array",
+          "length": 1,
+          "first_item_keys": [
+            "books_compared",
+            "cache_age_seconds",
+            "cached",
+            "category",
+            "country",
+            "data_age_seconds",
+            "freshest_age_seconds",
+            "market_percentage",
+            "race_id",
+            "race_name",
+            "race_number",
+            "refresh_tier",
+            "runners",
+            "scratchings",
+            "stale",
+            "stale_bookmakers",
+            "start_time",
+            "track_condition",
+            "venue"
+          ]
+        }
+      },
+      "credits_cost": "3"
+    },
+    "racing_changes": {
+      "arguments": {
+        "since": "2026-09-14T23:28:30Z",
+        "country": "AU"
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "object",
+          "keys": [
+            "races",
+            "server_time"
+          ]
+        }
+      },
+      "credits_cost": "2"
+    },
+    "racing_closing_lines": {
+      "arguments": {
+        "limit": 2
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "object",
+          "keys": [
+            "archive_from",
+            "limit",
+            "offset",
+            "resulted_rows",
+            "rows",
+            "rows_returned",
+            "total_rows",
+            "window_days"
+          ]
+        }
+      },
+      "credits_cost": "5"
+    },
+    "racing_closing_lines_coverage": {
+      "arguments": {},
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "object",
+          "keys": [
+            "archive_from",
+            "archive_to",
+            "bookmakers",
+            "by_category",
+            "is_closing_line_pct",
+            "name_fragment_suspect_rows",
+            "open_is_baseline_pct",
+            "races",
+            "resulted_races_pct",
+            "results_from",
+            "results_scope",
+            "rows",
+            "settleable_races",
+            "settleable_resulted_pct",
+            "venue_split_suspect_rows"
+          ]
+        }
+      },
+      "credits_cost": "1"
+    },
+    "racing_events": {
+      "arguments": {
+        "country": "AU",
+        "hours_ahead": 6
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "array",
+          "length": 55,
+          "first_item_keys": [
+            "category",
+            "conditions",
+            "country",
+            "distance_m",
+            "inplay",
+            "inplay_at",
+            "market_closed_at",
+            "market_state_source",
+            "market_status",
+            "prize_total",
+            "race_class",
+            "race_id",
+            "race_name",
+            "race_number",
+            "rail",
+            "scratchings",
+            "start_time",
+            "status",
+            "track_condition",
+            "track_condition_changed_at",
+            "track_name",
+            "venue",
+            "venue_canonical",
+            "venue_id",
+            "venue_site",
+            "weather"
+          ]
+        }
+      },
+      "credits_cost": "1"
+    },
+    "racing_movers": {
+      "arguments": {
+        "min_books": 2
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "array",
+          "length": 0
+        }
+      },
+      "credits_cost": "3"
+    },
+    "racing_next_to_go": {
+      "arguments": {
+        "country": "AU",
+        "num_races": 2,
+        "categories": "horse"
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "array",
+          "length": 2,
+          "first_item_keys": [
+            "cache_age_seconds",
+            "cached",
+            "category",
+            "conditions",
+            "country",
+            "data_age_seconds",
+            "distance_m",
+            "freshest_age_seconds",
+            "inplay_at",
+            "market_closed_at",
+            "market_state_source",
+            "places_paid",
+            "prize_total",
+            "race_class",
+            "race_id",
+            "race_name",
+            "race_number",
+            "rail",
+            "refresh_tier",
+            "runners",
+            "scratchings",
+            "source_id",
+            "stale",
+            "stale_bookmakers",
+            "start_time",
+            "track_condition",
+            "track_condition_changed_at",
+            "track_name",
+            "venue",
+            "venue_canonical",
+            "venue_id",
+            "venue_site",
+            "weather"
+          ]
+        }
+      },
+      "credits_cost": "2"
+    },
+    "racing_price_history": {
+      "arguments": {
+        "race_id": "de29eb14-1ad1-4fb2-94d9-ab3a588c38f2"
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "object",
+          "keys": [
+            "category",
+            "country",
+            "history_from",
+            "points_returned",
+            "race_id",
+            "race_number",
+            "runners",
+            "start_time",
+            "truncated",
+            "venue",
+            "venue_canonical",
+            "venue_id",
+            "venue_site"
+          ]
+        }
+      },
+      "credits_cost": "5"
+    },
+    "racing_results": {
+      "arguments": {
+        "country": "AU",
+        "limit": 3
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "array",
+          "length": 3,
+          "first_item_keys": [
+            "category",
+            "country",
+            "coverage_from",
+            "deductions",
+            "distance_m",
+            "dividends",
+            "field_note",
+            "field_source",
+            "field_status",
+            "going",
+            "going_rating",
+            "inplay_at",
+            "market_closed_at",
+            "market_state_source",
+            "placings",
+            "race_id",
+            "race_name",
+            "race_number",
+            "resulted_at",
+            "runners",
+            "start_time",
+            "status",
+            "status_note",
+            "track_condition",
+            "venue",
+            "venue_canonical",
+            "venue_id",
+            "venue_site",
+            "weather"
+          ]
+        }
+      },
+      "credits_cost": "2"
+    },
+    "racing_results_coverage": {
+      "arguments": {},
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "object",
+          "keys": [
+            "as_of",
+            "by_category",
+            "by_day",
+            "collectable",
+            "complete",
+            "complete_pct",
+            "coverage_from",
+            "days",
+            "field_scope",
+            "from_day",
+            "not_applicable",
+            "overdue",
+            "pending",
+            "races",
+            "supported_complete_pct",
+            "to_day",
+            "unavailable",
+            "unsupported",
+            "venues_incomplete",
+            "venues_incomplete_truncated"
+          ]
+        }
+      },
+      "credits_cost": "1"
+    },
+    "racing_track_conditions": {
+      "arguments": {},
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "object",
+          "keys": [
+            "date",
+            "meetings",
+            "note"
+          ]
+        }
+      },
+      "credits_cost": "1"
+    },
+    "racing_venues": {
+      "arguments": {},
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "array",
+          "length": 190,
+          "first_item_keys": [
+            "categories",
+            "country",
+            "spellings",
+            "venue_canonical",
+            "venue_id",
+            "venue_site"
+          ]
+        }
+      },
+      "credits_cost": "1"
+    },
+    "sports_odds": {
+      "arguments": {
+        "sport_key": "afl",
+        "markets": "h2h"
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "array",
+          "length": 3,
+          "first_item_keys": [
+            "away_team",
+            "bookmakers",
+            "cache_age_seconds",
+            "cached",
+            "canonical_event_id",
+            "commence_time",
+            "competition",
+            "data_age_seconds",
+            "data_quality",
+            "fetched_at",
+            "freshest_age_seconds",
+            "home_team",
+            "id",
+            "odds_format",
+            "sport_key",
+            "sport_title",
+            "stale",
+            "stale_bookmakers"
+          ]
+        }
+      },
+      "credits_cost": "1"
+    },
+    "trainer_stats": {
+      "arguments": {
+        "state": "NSW"
+      },
+      "is_error_flag": false,
+      "ok": true,
+      "shape": {
+        "type": "object",
+        "keys": [
+          "credits_cost",
+          "credits_remaining",
+          "data"
+        ],
+        "data": {
+          "type": "object",
+          "keys": [
+            "name",
+            "role",
+            "rows",
+            "scope",
+            "season_start_year",
+            "source",
+            "state"
+          ]
+        }
+      },
+      "credits_cost": "2"
+    }
+  }
+}

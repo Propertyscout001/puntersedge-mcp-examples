@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "puntersedge": {
+      "command": "npx",
+      "args": ["-y", "github:Propertyscout001/puntersedge-mcp"],
+      "env": {
+        "PUNTERSEDGE_API_KEY": "PUT-YOUR-KEY-HERE"
+      }
+    }
+  }
+}

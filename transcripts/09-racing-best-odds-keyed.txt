@@ -1,0 +1,81 @@
+# mcp_probe 2026-09-15T09:19:52+1000
+# server: puntersedge-mcp
+# protocolVersion offered: 2025-06-18
+# key present in env: yes
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp_probe",
+      "version": "1.0.0"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "capabilities": {
+      "experimental": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "listChanged": false,
+        "subscribe": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Australian and New Zealand racing plus Australian sports odds from 14 Australian bookmakers. AU racing covers thoroughbred, greyhound and harness; NZ covers thoroughbred and harness. Racing lives under racing_* tools, NOT a sport key \u2014 there is no sport_key of 'horse-racing'. Every priced call costs credits (stated per tool); check_usage shows the monthly balance, and every result carries credits_remaining so you rarely need it. Prices are decimal odds in AUD markets. Two things worth knowing before you reason over a price: each quote carries its own age_seconds and stale flag, because a stalled scraper keeps serving its last value rather than erroring; and a large apparent edge on a market only one bookmaker is quoting is a data artefact, not an opportunity.",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "puntersedge",
+      "version": ""
+    }
+  }
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized"
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "racing_best_odds",
+    "arguments": {
+      "country": "AU",
+      "num_races": 1,
+      "categories": "horse"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "content": [
+      {
+        "text": "{\"data\": [{\"race_id\": \"ce25a7d0-ee21-4fef-ba6b-0c6f8a35be83\", \"venue\": \"MORUYA\", \"race_number\": 1, \"category\": \"horse\", \"country\": \"AU\", \"start_time\": \"2026-09-15T03:25:00Z\", \"race_name\": \"SCB DISTRIBUTORS LEGEND OF THE SOUTH OCTOBER 2ND M...\", \"track_condition\": \"Good (4)\", \"market_percentage\": 125.46, \"books_compared\": 12, \"scratchings\": [], \"data_age_seconds\": 861, \"freshest_age_seconds\": 28, \"refresh_tier\": \"card\", \"stale\": false, \"stale_bookmakers\": [], \"cached\": false, \"cache_age_seconds\": 0, \"runners\": [{\"name\": \"Colorado Sun\", \"number\": 1, \"best_win\": {\"price\": 3.5, \"bookmaker\": \"sportsbet\", \"source_url\": \"https://www.sportsbet.com.au/horse-racing/australia-nz/moruya/race-1-10925860\", \"betslip_url\": null, \"last_update\": \"2026-09-14T23:17:54Z\", \"age_seconds\": 119, \"stale\": false, \"refresh_tier\": \"card\", \"age_basis\": \"poll\"}, \"books_quoting\": 12, \"books_quoting_win\": 12, \"books_quoting_place\": 12, \"price_spread_pct\": 9.38, \"barrier\": 5, \"jockey\": \"Nick Heywood\", \"trainer\": \"Keith Dryden & Libby Snowden\", \"weight\": 59.0, \"form\": \"8x25247x5\", \"runner_ref\": \"ra:MjA3MTczMzY3OTA\", \"best_place\": {\"price\": 1.5, \"bookmaker\": \"sportsbet\", \"source_url\": \"https://www.sportsbet.com.au/horse-racing/australia-nz/moruya/race-1-10925860\", \"betslip_url\": null, \"last_update\": \"2026-09-14T23:17:54Z\", \"age_seconds\": 119, \"stale\": false, \"refresh_tier\": \"card\", \"age_basis\": \"poll\"}, \"best_top2\": {\"price\": 2.0, \"bookmaker\": \"neds\", \"source_url\": \"https://www.neds.com.au/racing/moruya/bb5116e4-7ecd-4ba3-bd83-8d11298b104f\", \"books_quoting\": 4, \"last_update\": \"2026-09-14T23:06:53.568804Z\", \"age_seconds\": 779, \"stale\": false, \"refresh_tier\": \"card\", \"age_basis\": \"poll\"}, \"best_top3\": {\"price\": 1.5, \"bookmaker\": \"sportsbet\", \"source_url\": \"https://www.sportsbet.com.au/horse-racing/australia  <<< clipped by mcp_probe --truncate 1800; full body was 16067 chars >>>",
+        "type": "text"
+      }
+    ],
+    "isError": false,
+    "structuredContent": {
+      "result": "{\"data\": [{\"race_id\": \"ce25a7d0-ee21-4fef-ba6b-0c6f8a35be83\", \"venue\": \"MORUYA\", \"race_number\": 1, \"category\": \"horse\", \"country\": \"AU\", \"start_time\": \"2026-09-15T03:25:00Z\", \"race_name\": \"SCB DISTRIBUTORS LEGEND OF THE SOUTH OCTOBER 2ND M...\", \"track_condition\": \"Good (4)\", \"market_percentage\": 125.46, \"books_compared\": 12, \"scratchings\": [], \"data_age_seconds\": 861, \"freshest_age_seconds\": 28, \"refresh_tier\": \"card\", \"stale\": false, \"stale_bookmakers\": [], \"cached\": false, \"cache_age_seconds\": 0, \"runners\": [{\"name\": \"Colorado Sun\", \"number\": 1, \"best_win\": {\"price\": 3.5, \"bookmaker\": \"sportsbet\", \"source_url\": \"https://www.sportsbet.com.au/horse-racing/australia-nz/moruya/race-1-10925860\", \"betslip_url\": null, \"last_update\": \"2026-09-14T23:17:54Z\", \"age_seconds\": 119, \"stale\": false, \"refresh_tier\": \"card\", \"age_basis\": \"poll\"}, \"books_quoting\": 12, \"books_quoting_win\": 12, \"books_quoting_place\": 12, \"price_spread_pct\": 9.38, \"barrier\": 5, \"jockey\": \"Nick Heywood\", \"trainer\": \"Keith Dryden & Libby Snowden\", \"weight\": 59.0, \"form\": \"8x25247x5\", \"runner_ref\": \"ra:MjA3MTczMzY3OTA\", \"best_place\": {\"price\": 1.5, \"bookmaker\": \"sportsbet\", \"source_url\": \"https://www.sportsbet.com.au/horse-racing/australia-nz/moruya/race-1-10925860\", \"betslip_url\": null, \"last_update\": \"2026-09-14T23:17:54Z\", \"age_seconds\": 119, \"stale\": false, \"refresh_tier\": \"card\", \"age_basis\": \"poll\"}, \"best_top2\": {\"price\": 2.0, \"bookmaker\": \"neds\", \"source_url\": \"https://www.neds.com.au/racing/moruya/bb5116e4-7ecd-4ba3-bd83-8d11298b104f\", \"books_quoting\": 4, \"last_update\": \"2026-09-14T23:06:53.568804Z\", \"age_seconds\": 779, \"stale\": false, \"refresh_tier\": \"card\", \"age_basis\": \"poll\"}, \"best_top3\": {\"price\": 1.5, \"bookmaker\": \"sportsbet\", \"source_url\": \"https://www.sportsbet.com.au/horse-racing/australia  <<< clipped by mcp_probe --truncate 1800; full body was 16067 chars >>>"
+    }
+  }
+}
+

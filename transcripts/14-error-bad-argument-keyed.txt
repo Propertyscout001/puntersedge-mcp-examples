@@ -1,0 +1,79 @@
+# mcp_probe 2026-09-15T09:19:56+1000
+# server: puntersedge-mcp
+# protocolVersion offered: 2025-06-18
+# key present in env: yes
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp_probe",
+      "version": "1.0.0"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "capabilities": {
+      "experimental": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "listChanged": false,
+        "subscribe": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Australian and New Zealand racing plus Australian sports odds from 14 Australian bookmakers. AU racing covers thoroughbred, greyhound and harness; NZ covers thoroughbred and harness. Racing lives under racing_* tools, NOT a sport key \u2014 there is no sport_key of 'horse-racing'. Every priced call costs credits (stated per tool); check_usage shows the monthly balance, and every result carries credits_remaining so you rarely need it. Prices are decimal odds in AUD markets. Two things worth knowing before you reason over a price: each quote carries its own age_seconds and stale flag, because a stalled scraper keeps serving its last value rather than erroring; and a large apparent edge on a market only one bookmaker is quoting is a data artefact, not an opportunity.",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "puntersedge",
+      "version": ""
+    }
+  }
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized"
+}
+
+--> {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "racing_movers",
+    "arguments": {
+      "direction": "steam"
+    }
+  }
+}
+
+<-- {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "content": [
+      {
+        "text": "{\"error\": \"HTTP 422\", \"detail\": \"{\\\"type\\\":\\\"https://puntersedge.online/errors/validation\\\",\\\"title\\\":\\\"direction must be 'firming', 'drifting', or omitted.\\\",\\\"status\\\":422,\\\"detail\\\":\\\"direction must be 'firming', 'drifting', or omitted.\\\"}\", \"hint\": \"The request was malformed and was NOT billed. The detail names the bad parameter \\u2014 fix it rather than retrying as-is.\"}",
+        "type": "text"
+      }
+    ],
+    "isError": false,
+    "structuredContent": {
+      "result": "{\"error\": \"HTTP 422\", \"detail\": \"{\\\"type\\\":\\\"https://puntersedge.online/errors/validation\\\",\\\"title\\\":\\\"direction must be 'firming', 'drifting', or omitted.\\\",\\\"status\\\":422,\\\"detail\\\":\\\"direction must be 'firming', 'drifting', or omitted.\\\"}\", \"hint\": \"The request was malformed and was NOT billed. The detail names the bad parameter \\u2014 fix it rather than retrying as-is.\"}"
+    }
+  }
+}
+
