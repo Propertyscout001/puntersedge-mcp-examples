@@ -14,22 +14,43 @@ Nothing here places a bet or holds bookmaker credentials. It reads a data feed.
 ## Run it without an API key
 
 Two of the tools are a no-key sandbox. This clones the repo, installs the
-server, and has it answer a real call:
+server into a throwaway virtualenv, and has it answer a real call:
 
 ```sh
 git clone https://github.com/Propertyscout001/puntersedge-mcp-examples
 cd puntersedge-mcp-examples
-python3 -m pip install puntersedge-mcp          # Python 3.10 or newer
-python3 tools/mcp_probe.py --call demo_next_to_go -- puntersedge-mcp
+
+python3 -V                                      # must print 3.10 or newer
+python3 -m venv .venv && . .venv/bin/activate   # if it printed 3.9, read on
+python -m pip install puntersedge-mcp
+python tools/mcp_probe.py --call demo_next_to_go -- puntersedge-mcp
 ```
 
+**Check `python3 -V` before you run that.** macOS still ships Python 3.9 as
+`/usr/bin/python3`, and every published `puntersedge-mcp` wheel requires 3.10 or
+newer, so on a stock Mac the install dies with:
+
+```
+ERROR: Could not find a version that satisfies the requirement puntersedge-mcp (from versions: none)
+ERROR: No matching distribution found for puntersedge-mcp
+```
+
+pip never mentions the Python version, so that message reads as "the package
+does not exist" when it means "this interpreter is too old". Name a newer one
+when you build the virtualenv — `python3.12 -m venv .venv` (`brew install
+python@3.12` if you have none) or `pipx install puntersedge-mcp` — and the rest
+of the block is unchanged. Verified here on 3.12.
+
 `tools/mcp_probe.py` is a dependency-free MCP stdio client, 266 lines of
-standard library. It does what Claude Desktop does — spawn the server, send
+standard library, and it runs on 3.9 quite happily — it is only the server that
+needs 3.10. It does what Claude Desktop does — spawn the server, send
 `initialize`, send `tools/call` — and prints every JSON-RPC frame verbatim, so
 you can see exactly what an assistant would see.
 
-If you would rather install nothing, the TypeScript server runs straight from
-GitHub, and handshake plus tool list needs no key either:
+If you would rather install nothing at all, the TypeScript server runs straight
+from GitHub under `npx`, with no pip and no virtualenv. It has no demo tools, so
+this is a handshake and a tool list rather than a data call, but it needs no key
+either:
 
 ```sh
 python3 tools/mcp_probe.py --list --names-only -- npx -y github:Propertyscout001/puntersedge-mcp
@@ -37,13 +58,13 @@ python3 tools/mcp_probe.py --list --names-only -- npx -y github:Propertyscout001
 
 ## Real output
 
-Captured 15 September 2026 (AEST) on this machine. Full file:
+Captured 15 September 2026, 09:45 AEST, on this machine. Full file:
 [`docs/output.txt`](docs/output.txt).
 
 ```
 $ python3 tools/mcp_probe.py --list --names-only -- puntersedge-mcp
 
-# mcp_probe 2026-09-15T09:30:15+1000
+# mcp_probe 2026-09-15T09:45:09+1000
 # server: puntersedge-mcp
 # protocolVersion offered: 2025-06-18
 # key present in env: no
@@ -84,7 +105,7 @@ $ python3 tools/mcp_probe.py --call demo_next_to_go --truncate 400 -- puntersedg
   "result": {
     "content": [
       {
-        "text": "{\"data\": {\"demo\": true, \"note\": \"Free sandbox sample (truncated). Get a free API key for full data: https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"signup_url\": \"https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"shape\": \"Sandbox teaser: 3 races, 5 runners, best 3 prices, wrapped in this envelope. GET /v1/racing/next-to-go returns a bare array of full  <<< clipped by mcp_probe --truncate 400; full body was 7659 chars >>>",
+        "text": "{\"data\": {\"demo\": true, \"note\": \"Free sandbox sample (truncated). Get a free API key for full data: https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"signup_url\": \"https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"shape\": \"Sandbox teaser: 3 races, 5 runners, best 3 prices, wrapped in this envelope. GET /v1/racing/next-to-go returns a bare array of full  <<< clipped by mcp_probe --truncate 400; full body was 7574 chars >>>",
         "type": "text"
       }
     ],
@@ -203,6 +224,7 @@ tools/gen_tool_map_html.py   regenerates docs/tool-map.html
 docs/output.txt              captured terminal output, dated
 docs/tool-shapes.json        what each tool returned, machine-readable
 docs/tool-map.html           the tool reference as a page
+docs/rate-limit-429.txt      what going over the demo rate limit looks like, verbatim
 ```
 
 ## No assistant? The curl underneath
@@ -272,11 +294,17 @@ with a 422 naming the ones it does accept. The MCP tool schemas expose only the
 parameters that are real, which is a good reason to use them over hand-rolled
 HTTP.
 
-**The demo tools are rate-limited at 30 calls a minute per IP.** Exceed it and you
-get the same `isError: false` shape with `{"error": "HTTP 429", "hint": "Rate
-limited. Wait 60 seconds and repeat the identical call."}` inside. We hit it while
-capturing - section 7 of `docs/output.txt` is the moment it happened, and the
-sweep three minutes later came back clean.
+**The demo tools are rate-limited at 30 calls a minute per IP.** Over the line,
+the API answers with RFC 9457 problem+json — `"title": "Demo rate limit reached
+(30/min per IP)"` — and the server rewraps it as the usual `isError: false` body
+with `{"error": "HTTP 429", "hint": "Rate limited. Wait 60 seconds and repeat the
+identical call."}` inside. We tripped it during the 09:30 capture run on 15
+September, with several builds sharing one outbound IP; the committed
+`docs/output.txt` is a later run that came back clean, so the verbatim 429 —
+both the raw problem+json and the same failure seen through the sweep — is kept
+in [`docs/rate-limit-429.txt`](docs/rate-limit-429.txt) instead of being lost.
+The per-status hint table it quotes is read straight out of `puntersedge_mcp`
+0.2.1 `server.py`.
 
 Two smaller things: send `Accept-Encoding: gzip` and reuse the connection if you
 are calling the HTTP API directly — the responses compress heavily — and never
@@ -323,9 +351,10 @@ recorded before a move.
   either — only `tools`.
 - **`tools/probe_all_tools.py` calls every tool once.** On a free-tier key that
   is roughly 60 credits of your 1,500. It is not something to put on a timer.
-- **No Windows testing.** Everything here was run on macOS with Python 3.12 for
-  the server and system Python 3.9 for the probe. The probe is standard library
-  and should be fine on 3.8+; the server needs 3.10+.
+- **No Windows testing.** Everything here was run on macOS. The Python server
+  needs 3.10+ and was run from a 3.12 virtualenv; the probe is standard library
+  only and was confirmed running the same keyless handshake and demo call under
+  both that 3.12 and `/usr/bin/python3` 3.9.6. It should be fine on 3.8+.
 
 ---
 18+ only. Gambling can be addictive — please gamble responsibly.

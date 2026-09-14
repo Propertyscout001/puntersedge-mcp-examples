@@ -57,7 +57,7 @@ ENDPOINT = {
 PROMPT = {
     "racing_next_to_go": "What Australian horse races are jumping in the next half hour, and what is every bookmaker quoting on each runner?",
     "racing_best_odds": "For the next Australian thoroughbred race, which bookmaker has the best win price on each runner?",
-    "racing_movers": "Which Australian runners have firmed across at least three bookmakers in the last hour?",
+    "racing_movers": "Which Australian runners have firmed across at least two bookmakers in the last hour?",
     "racing_changes": "Poll for Australian racing prices that changed in the last five minutes, and tell me what moved.",
     "racing_events": "List the Australian race meetings scheduled over the next six hours. I do not need prices.",
     "racing_track_conditions": "What is the track condition and rail position at Randwick today, and has it changed during the day?",
@@ -120,6 +120,10 @@ def shape_line(entry):
             out += "; `data` is an array"
             if fi:
                 out += " whose items carry `%s`" % "`, `".join(fi)
+            elif data.get("length") == 0:
+                out += (" that was empty at that moment, so no item keys were "
+                        "recorded \u2014 an empty result is a state of the "
+                        "market, not a missing field")
         elif data.get("type") == "object":
             out += "; `data` is an object with `%s`" % "`, `".join(data.get("keys", []))
     return out
@@ -178,6 +182,21 @@ def main():
         if full:
             w("<details><summary>The description the assistant sees</summary>\n\n"
               "```\n%s\n```\n\n</details>\n\n" % full)
+
+    w("## Getting a key\n\n")
+    w("Free tier, 1,500 credits a month, no card: "
+      "[puntersedge.online/api](https://puntersedge.online/api"
+      "?utm_source=puntersedge-mcp-examples&utm_medium=docs). "
+      "Which bookmakers and codes are being served right now: "
+      "[coverage report](https://puntersedge.online/coverage-report"
+      "?utm_source=puntersedge-mcp-examples&utm_medium=docs). "
+      "Back to the [README](README.md).\n\n")
+    w("---\n")
+    w("18+ only. Gambling can be addictive \u2014 please gamble responsibly.\n")
+    w("Gambling Help: 1800 858 858 \u00b7 https://www.gambleaware.nsw.gov.au\n")
+    w("This repository is a developer example for reading an odds data feed. "
+      "It is not betting\nadvice, it places no bets and it holds no bookmaker "
+      "credentials.\n")
 
 
 if __name__ == "__main__":

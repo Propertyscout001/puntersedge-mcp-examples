@@ -157,13 +157,15 @@ def main():
             "<h3>What it is</h3><p>%s</p>"
             "<h3>Parameters</h3><p class='mono'>%s</p>"
             "<h3>Ask an assistant</h3><blockquote>%s</blockquote>"
-            "<h3>What came back (%s)</h3>%s"
+            "<h3>What came back (%s, arguments <code>%s</code>)</h3>%s"
             "</div></td></tr>"
             % (i, html.escape(first_sentence(t.get("description"))),
                html.escape(", ".join("%s%s" % (p, " (required)" if p in req else "")
                                      for p in params) or "none"),
                html.escape(PROMPT.get(name, "-")),
-               html.escape(shapes["captured_at"]), shape_html(entry)))
+               html.escape(shapes["captured_at"]),
+               html.escape(json.dumps((entry or {}).get("arguments", {}))),
+               shape_html(entry)))
 
     page = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">

@@ -1,5 +1,5 @@
 PuntersEdge MCP examples - captured terminal output
-Run: 2026-09-15 09:30:15 AEST
+Run: 2026-09-15 09:45:09 AEST
 Host: Darwin 24.6.0 arm64
 node: v22.22.0
 probe python: Python 3.12.13
@@ -21,7 +21,7 @@ use an internal unlimited build key, which is why credits_remaining reads
 
 $ python3 tools/mcp_probe.py --list --names-only -- puntersedge-mcp
 
-# mcp_probe 2026-09-15T09:30:15+1000
+# mcp_probe 2026-09-15T09:45:09+1000
 # server: puntersedge-mcp
 # protocolVersion offered: 2025-06-18
 # key present in env: no
@@ -61,7 +61,7 @@ initialize ok: puntersedge  (protocol 2025-06-18)
 
 $ python3 tools/mcp_probe.py --call demo_next_to_go --truncate 400 -- puntersedge-mcp
 
-# mcp_probe 2026-09-15T09:30:16+1000
+# mcp_probe 2026-09-15T09:45:09+1000
 # server: puntersedge-mcp
 # protocolVersion offered: 2025-06-18
 # key present in env: no
@@ -127,13 +127,13 @@ $ python3 tools/mcp_probe.py --call demo_next_to_go --truncate 400 -- puntersedg
   "result": {
     "content": [
       {
-        "text": "{\"data\": {\"demo\": true, \"note\": \"Free sandbox sample (truncated). Get a free API key for full data: https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"signup_url\": \"https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"shape\": \"Sandbox teaser: 3 races, 5 runners, best 3 prices, wrapped in this envelope. GET /v1/racing/next-to-go returns a bare array of full  <<< clipped by mcp_probe --truncate 400; full body was 7659 chars >>>",
+        "text": "{\"data\": {\"demo\": true, \"note\": \"Free sandbox sample (truncated). Get a free API key for full data: https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"signup_url\": \"https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"shape\": \"Sandbox teaser: 3 races, 5 runners, best 3 prices, wrapped in this envelope. GET /v1/racing/next-to-go returns a bare array of full  <<< clipped by mcp_probe --truncate 400; full body was 7574 chars >>>",
         "type": "text"
       }
     ],
     "isError": false,
     "structuredContent": {
-      "result": "{\"data\": {\"demo\": true, \"note\": \"Free sandbox sample (truncated). Get a free API key for full data: https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"signup_url\": \"https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"shape\": \"Sandbox teaser: 3 races, 5 runners, best 3 prices, wrapped in this envelope. GET /v1/racing/next-to-go returns a bare array of full  <<< clipped by mcp_probe --truncate 400; full body was 7659 chars >>>"
+      "result": "{\"data\": {\"demo\": true, \"note\": \"Free sandbox sample (truncated). Get a free API key for full data: https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"signup_url\": \"https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox\", \"shape\": \"Sandbox teaser: 3 races, 5 runners, best 3 prices, wrapped in this envelope. GET /v1/racing/next-to-go returns a bare array of full  <<< clipped by mcp_probe --truncate 400; full body was 7574 chars >>>"
     }
   }
 }
@@ -144,7 +144,7 @@ $ python3 tools/mcp_probe.py --call demo_next_to_go --truncate 400 -- puntersedg
 
 $ python3 tools/mcp_probe.py --list --names-only -- npx -y github:Propertyscout001/puntersedge-mcp
 
-# mcp_probe 2026-09-15T09:30:16+1000
+# mcp_probe 2026-09-15T09:45:10+1000
 # server: npx -y github:Propertyscout001/puntersedge-mcp
 # protocolVersion offered: 2025-06-18
 # key present in env: no
@@ -206,8 +206,7 @@ $ bash curl/equivalents.sh demo_next_to_go | head -c 700
 # demo_next_to_go
 curl -s --compressed 'https://api.puntersedge.online/v1/demo/racing/next-to-go'
 
-{"type":"https://puntersedge.online/errors/rate-limit","title":"Demo rate limit reached (30/min per IP). Get a free API key for higher limits: https://puntersedge.online/api?utm_source=demo_api&utm_medium=ratelimit","status":429,"detail":"Demo rate limit reached (30/min per IP). Get a free API key for higher limits: https://puntersedge.online/api?utm_source=demo_api&utm_medium=ratelimit"}
-
+{"demo":true,"note":"Free sandbox sample (truncated). Get a free API key for full data: https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox","signup_url":"https://puntersedge.online/api?utm_source=demo_api&utm_medium=sandbox","shape":"Sandbox teaser: 3 races, 5 runners, best 3 prices, wrapped in this envelope. GET /v1/racing/next-to-go returns a bare array of full race objects. race_id matches, so anything you build here extends to /v1/racing/price-history, /results and /closing-lines.","races":[{"race_id":"e79e50b1-bc25-4d1d-976c-6b34d0b6426c","venue":"Angle Park","race_numbe
   [...]
 
 
@@ -268,7 +267,7 @@ best_odds                      ok
 check_usage                    FAILED HTTP 500
 connector_health               ok
 demo_best_odds                 ok
-demo_next_to_go                FAILED HTTP 429
+demo_next_to_go                ok
 greyhound_form                 ok
 greyhound_stats                ok
 horse_form                     ok
@@ -302,17 +301,17 @@ curl -s --compressed -H "X-API-Key: $PE_API_KEY" 'https://api.puntersedge.online
 
 HTTP/2 200 
 server: nginx/1.29.5
-date: Mon, 14 Sep 2026 23:30:33 GMT
+date: Mon, 14 Sep 2026 23:45:24 GMT
 content-type: application/json
 content-length: 2
 x-ratelimit-limit: 2000
-x-ratelimit-remaining: 1924
+x-ratelimit-remaining: 1971
 x-ratelimit-reset: 60
 x-credits-cost: 3
 x-credits-used: 0
 x-credits-limit: unlimited
 x-credits-remaining: unlimited
-x-request-id: b237ee7895cf07705fc275d33685ba76
+x-request-id: a6bc556186c23fab3d4bfdcb12c54abd
 x-ratelimit-policy: per-minute per API key by plan; credits per plan
 x-content-type-options: nosniff
 x-frame-options: DENY

@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-09-14T23:33:30Z",
+  "captured_at": "2026-09-14T23:45:14Z",
   "server_command": "puntersedge-mcp",
   "server_name": "puntersedge",
   "server_version": "",
@@ -369,7 +369,7 @@
     },
     "racing_changes": {
       "arguments": {
-        "since": "2026-09-14T23:28:30Z",
+        "since": "2026-09-14T23:40:14Z",
         "country": "AU"
       },
       "is_error_flag": false,
@@ -470,7 +470,7 @@
         ],
         "data": {
           "type": "array",
-          "length": 55,
+          "length": 59,
           "first_item_keys": [
             "category",
             "conditions",
@@ -505,6 +505,7 @@
     },
     "racing_movers": {
       "arguments": {
+        "country": "AU",
         "min_books": 2
       },
       "is_error_flag": false,
@@ -740,7 +741,7 @@
         ],
         "data": {
           "type": "array",
-          "length": 190,
+          "length": 189,
           "first_item_keys": [
             "categories",
             "country",

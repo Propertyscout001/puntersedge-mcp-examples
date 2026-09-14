@@ -26,7 +26,7 @@ from mcp_probe import StdioClient, extract_payload  # noqa: E402
 ARGS = {
     "racing_next_to_go": {"country": "AU", "num_races": 2, "categories": "horse"},
     "racing_best_odds": {"country": "AU", "num_races": 1, "categories": "horse"},
-    "racing_movers": {"min_books": 2},
+    "racing_movers": {"country": "AU", "min_books": 2},
     "racing_events": {"country": "AU", "hours_ahead": 6},
     "racing_results": {"country": "AU", "limit": 3},
     "racing_track_conditions": {},

@@ -50,3 +50,9 @@ the inherited environment either way.
 Do not commit a filled-in copy. `.gitignore` in this repo already ignores
 `configs/*.local.json`, so `cp cursor.mcp.json cursor.local.json` gives you a
 scratch copy that cannot be committed by accident.
+
+---
+18+ only. Gambling can be addictive — please gamble responsibly.
+Gambling Help: 1800 858 858 · https://www.gambleaware.nsw.gov.au
+This repository is a developer example for reading an odds data feed. It is not betting
+advice, it places no bets and it holds no bookmaker credentials.
