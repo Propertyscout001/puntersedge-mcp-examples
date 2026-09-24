@@ -189,7 +189,7 @@ Costs are the server's own figures. A malformed request is refused without being
 <thead><tr><th>Tool</th><th>Cost</th><th>HTTP endpoint</th><th></th></tr></thead>
 <tbody>%s</tbody></table>
 <p class="foot">Regenerate: <code>python3 tools/gen_tool_map_html.py</code>.
-Free API key, 1,500 credits a month, no card:
+Free API key, 3,000 credits a month, no card:
 <a href="https://puntersedge.online/api?utm_source=puntersedge-mcp-examples&amp;utm_medium=docs">puntersedge.online/api</a>
 &middot; <a href="https://puntersedge.online/coverage-report?utm_source=puntersedge-mcp-examples&amp;utm_medium=docs">coverage report</a><br><br>
 18+ only. Gambling can be addictive &mdash; please gamble responsibly.

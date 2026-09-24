@@ -184,7 +184,7 @@ def main():
               "```\n%s\n```\n\n</details>\n\n" % full)
 
     w("## Getting a key\n\n")
-    w("Free tier, 1,500 credits a month, no card: "
+    w("Free tier, 3,000 credits a month, no card: "
       "[puntersedge.online/api](https://puntersedge.online/api"
       "?utm_source=puntersedge-mcp-examples&utm_medium=docs). "
       "Which bookmakers and codes are being served right now: "

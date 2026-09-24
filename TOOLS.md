@@ -667,7 +667,7 @@ Free no-key sandbox sample of sports best-odds with arb detection. COST: free. `
 
 ## Getting a key
 
-Free tier, 1,500 credits a month, no card: [puntersedge.online/api](https://puntersedge.online/api?utm_source=puntersedge-mcp-examples&utm_medium=docs). Which bookmakers and codes are being served right now: [coverage report](https://puntersedge.online/coverage-report?utm_source=puntersedge-mcp-examples&utm_medium=docs). Back to the [README](README.md).
+Free tier, 3,000 credits a month, no card: [puntersedge.online/api](https://puntersedge.online/api?utm_source=puntersedge-mcp-examples&utm_medium=docs). Which bookmakers and codes are being served right now: [coverage report](https://puntersedge.online/coverage-report?utm_source=puntersedge-mcp-examples&utm_medium=docs). Back to the [README](README.md).
 
 ---
 18+ only. Gambling can be addictive — please gamble responsibly.

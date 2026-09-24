@@ -178,7 +178,7 @@ in a file.
 
 ## With a free key
 
-The free tier is 1,500 credits a month, no credit card:
+The free tier is 3,000 credits a month, no credit card:
 [puntersedge.online/api](https://puntersedge.online/api?utm_source=puntersedge-mcp-examples&utm_medium=readme).
 
 With a key set, the other 24 tools answer. Costs, per call, in credits:
@@ -350,7 +350,7 @@ recorded before a move.
   capabilities with `listChanged: false`, and this repo does not exercise
   either — only `tools`.
 - **`tools/probe_all_tools.py` calls every tool once.** On a free-tier key that
-  is roughly 60 credits of your 1,500. It is not something to put on a timer.
+  is roughly 60 credits of your 3,000. It is not something to put on a timer.
 - **No Windows testing.** Everything here was run on macOS. The Python server
   needs 3.10+ and was run from a 3.12 virtualenv; the probe is standard library
   only and was confirmed running the same keyless handshake and demo call under
